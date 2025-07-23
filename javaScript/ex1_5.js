@@ -22,3 +22,18 @@ console.log(`age1 변수상자의 크기 : ${typeof(age1)}`);
 
 let visible = true;
 console.log(`visible 변수상자의 크기 : ${typeof(visible)}`);
+
+let age2;
+console.log(`age2 변수상자의 크기 : ${typeof(age2)}`);
+
+if (typeof(age2) == 'undefined') {
+    console.log(`age2 변수상자의 크기를 알 수 없습니다.`);
+}else if(typeof(age2) == 'string') {
+    console.log(`age2 변수상자의 크기는 string 입니다.`)
+}
+
+age2 = 22;
+
+if(age2) {
+    console.log(`age2 변수상자의 크기가 결정되어 있습니다 : ${typeof(age2)}`);
+}
