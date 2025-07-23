@@ -1,0 +1,92 @@
+<!DOCTYPE html> <!-- ✅ HTML: 문서가 HTML5 형식임을 선언 -->
+
+<html> <!-- ✅ HTML: HTML 문서의 시작 -->
+  <head> <!-- ✅ HTML: 문서 설정 및 스타일 영역 시작 -->
+
+    <meta charset="UTF-8"> <!-- ✅ HTML: 문자 인코딩 설정 -->
+    <title>연습</title>    <!-- ✅ HTML: 브라우저 탭 제목 설정 -->
+
+    <!-- ✅ CSS: 스타일 정의 시작 -->
+    <style>
+      /* ✅ CSS: HTML 태그 자체를 선택 (p, span, img) */
+      p {
+        border: 2px solid blue;
+      }
+      span {
+        border: 2px solid green;
+      }
+      img {
+        border: 2px solid red;
+      }
+
+      /* ✅ CSS: class 선택자 (앞에 점 붙임) */
+      .group1 {
+        border: 2px solid magenta;
+      }
+
+      /* ✅ CSS: id 선택자 (앞에 # 붙임) */
+      #my1 {
+        color: red;
+        font-size: 2em;
+        font-weight: bold;
+      }
+    </style>
+    <!-- ✅ CSS: 스타일 정의 끝 -->
+
+  </head>
+
+  <body> <!-- ✅ HTML: 실제 화면에 보여질 내용 -->
+
+    <h1>연습 첫번째</h1> <!-- ✅ HTML -->
+
+    <!-- ✅ HTML: 블록 요소 div, 내부에 class 적용 -->
+    <div class="group1">
+      <p id="my1">연습입니다</p>  <!-- ✅ HTML + CSS(id) 적용 -->
+      <p>연습입니다</p>
+      <p>연습입니다</p>
+      <p>연습입니다</p>
+    <div> <!-- ❗ 잘못 닫힘: </div> 여야 함 -->
+
+    <!-- ✅ HTML: 인라인 요소 span -->
+    <div class="group1">
+      <span>테스트입니다.</span>
+      <span>테스트입니다.</span>
+      <span>테스트입니다.</span>
+    </div>
+
+    <!-- ✅ HTML: 이미지 3개 -->
+    <div class="group1">
+      <img src="images/cat_stand.png">
+      <img src="images/cat_walk.png">
+      <img src="images/cat_run.png">
+    </div>
+
+    <!-- ✅ HTML: 입력창(input)과 버튼 생성 -->
+    <div>
+      <input type="text" value="" id="input1">         <!-- ✅ HTML + id -->
+      <input type="text" value="21">                   <!-- ✅ HTML -->
+      <input type="text" value="010-1000-1000">        <!-- ✅ HTML -->
+      <button onclick="show()">확인</button>           <!-- ✅ HTML + JS 호출 -->
+    </div>
+
+    <div id="output1"></div> <!-- ✅ HTML: 결과 출력 영역 -->
+
+    <!-- ✅ JavaScript 코드 시작 -->
+    <script>
+      // ✅ JS: 함수 선언
+      function show() {
+        console.log('버튼이 눌렸어요');  // ✅ JS: 콘솔 출력
+
+        // ✅ JS: input과 output 요소를 가져옴
+        const input1 = document.querySelector('#input1');
+        const output1 = document.querySelector('#output1');
+
+        // ✅ JS: HTML 태그를 문자열로 만들어 출력창에 삽입
+        output1.innerHTML = `<p>입력한 값 : ${input1.value}</p>`;
+        // ⬆ 여기서 백틱(``) 안은 HTML이고, ${input1.value}는 JS 코드!
+      }
+    </script>
+    <!-- ✅ JavaScript 끝 -->
+
+  </body>
+</html>
