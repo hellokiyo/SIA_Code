@@ -22,6 +22,3 @@ console.log(`age1 변수상자의 크기 : ${typeof(age1)}`);
 
 let visible = true;
 console.log(`visible 변수상자의 크기 : ${typeof(visible)}`);
-
-let age2;
-console.log(`age2 변수상자의 크기 : ${typeof(age2)}`);
