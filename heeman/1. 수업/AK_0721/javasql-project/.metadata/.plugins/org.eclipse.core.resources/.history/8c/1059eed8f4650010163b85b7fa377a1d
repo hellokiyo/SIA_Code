@@ -1,0 +1,162 @@
+package teamproject;
+
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
+
+public class EmpDAO {
+	
+	public static List<Emp> searchByName(Scanner scan) {
+		String name = scan.nextLine();
+		String sql = "select * from employees where first_name = ? OR last_name = ?";
+		Object[] objs = {name, name};
+		return DBExecutor.executeQuery(sql, objs);
+	}
+	
+	public static List<Emp> searchByHireYear(Scanner scan) {
+		int hireYear = scan.nextInt();
+		String sql = "select * from employees where year(hire_date) = ?";
+		Object[] objs = {hireYear};
+		return DBExecutor.executeQuery(sql, objs);
+	}
+	
+	public static List<Emp> getStatsByHireYear() {
+		String sql = "select year(hire_date) hire_year, count(*) CNT "
+				+ "	  from employees group by hire_year"
+				+ "	  order by (case hire_year when 2011 then 1"
+				+ "						 	   when 2012 then 2"
+				+ "						 	   when 2013 then 3"
+				+ "						 	   when 2014 then 4"
+				+ "						 	   when 2015 then 5"
+				+ "						 	   when 2016 then 6"
+				+ "						 	   when 2017 then 7"
+				+ "						 	   else 8 end);";
+		Object[] objs = {};
+		return DBExecutor.executeQuery(sql, objs);
+	}
+	
+	public static List<Emp> searchByDeptNo(Scanner scan) {
+		int deptId = scan.nextInt();
+		String sql = "select * from employees where department_id = ?";
+		Object[] objs = {deptId};
+		return DBExecutor.executeQuery(sql, objs);
+	}
+	
+	public static List<Emp> getStatsByDeptNo() {
+		String sql = "select case department_id dept_no count(*) CNT"
+				+ "   from employees group by dept_no"
+				+ "   order by (case dept_no when 10 then 1"
+				+ "	  						 when 20 then 2"
+				+ "                          when 30 then 3"
+				+ "                          when 40 then 4"
+				+ "                          when 50 then 5"
+				+ "                          when 60 then 6"
+				+ "                          when 70 then 7"
+				+ "                          when 80 then 8"
+				+ "                          when 90 then 9"
+				+ "                          else 10 end);";
+		Object[] objs = {};
+		return DBExecutor.executeQuery(sql, objs);
+	}
+	
+	public static List<Emp> searchByJobId(Scanner scan) {
+		String jobId = scan.nextLine();
+		String sql = "select * from employees where job_id = ?";
+		Object[] objs = {jobId};
+		return DBExecutor.executeQuery(sql, objs);
+	}
+	
+	public static List<Emp> getStatsByJobId() {
+		String sql = "select job_id, count(*) CNT from employees group by job_id;";
+		Object[] objs = {};
+		return DBExecutor.executeQuery(sql, objs);
+	}
+	
+	public static List<Emp> searchByCity(Scanner scan) {
+		String city = scan.nextLine();
+		String sql = "select * from employees e"
+				+ "			   join departments d on e.department_id = d.department_id"
+				+ "			   join locations l on l.location_id = d.location_Id"
+				+ "        	   where l.city = ?;";
+		Object[] objs = {city};
+		return DBExecutor.executeQuery(sql, objs);
+	}
+	
+	public static List<Emp> getStatsByCity() {
+		String sql = "select l.city, count(*) CNT from employees e"
+				+ "									   join departments d on e.department_id = d.department_id"
+				+ "									   join locations l on l.location_id = d.location_id"
+				+ "									   group by l.city";
+		Object[] objs = {};
+		return DBExecutor.executeQuery(sql, objs);
+	}
+	
+	public static List<Emp> getStatsBySal() {
+		String sql = "select case when salary <= 5000 then 'C'"
+				+ "				  when salary <= 10000 then 'B'"
+				+ "				  when salary <= 15000 then 'A'"
+				+ "				  else 'S' end sal_grade,"
+				+ "				  count(*) CNT"
+				+ "				  from employees group by sal_grade"
+				+ "				  order by (case sal_grade when 'S' then 1"
+				+ "										   when 'A' then 2"
+				+ "										   when 'B' then 3"
+				+ "										   else 4 end);";
+		Object[] objs = {};
+		return DBExecutor.executeQuery(sql, objs);
+	}
+	
+	public static List<Emp> getAvgSalByDept() {
+		String sql = "select department_name, round(avg(salary), 0) avg_sal"
+				+ "	  from employees e join departments d on e.department_id = d.department_id"
+				+ "	  group by department_name;";
+		Object[] objs = {};
+		return DBExecutor.executeQuery(sql, objs);
+	}
+	
+	public static List<Emp> searchMemByDeptMngr(Scanner scan) {
+		String deptMngrFirstName = scan.nextLine();
+		String sql = "select * from employees e"
+				+ "	  		   left join departments d on d.department_id = e.department_id"
+				+ "	  	  	   left join employees m on m.employee_id = d.manager_id"
+				+ "	  		   where m.first_name = ?;";
+		Object[] objs = {deptMngrFirstName};
+		return DBExecutor.executeQuery(sql, objs);
+	}
+	
+	public static List<Emp> getMemStatsByDeptMngr() {
+		String sql = "select m.first_name, count(*) CNT"
+				+ "			 from employees e"
+				+ "			 left join departments d on d.department_id = e.department_id"
+				+ "			 left join employees m on m.employee_id = d.manager_id"
+				+ "			 group by m.first_name;";
+		Object[] objs = {};
+		return DBExecutor.executeQuery(sql, objs);
+	}
+	
+	public static List<Emp> searchByCountry(Scanner scan) {
+		String countryName = scan.nextLine();
+		String sql = "select * from employees e"
+				+ "			   join departments d on e.department_id = d.department_id"
+				+ "		 	   join locations l on d.location_id = l.location_id"
+				+ "			   join countries c on l.country_id = c.country_id"
+				+ "			   where c.country_name = ?;";
+		Object[] objs = {countryName};
+		return DBExecutor.executeQuery(sql, objs);
+	}
+	
+	public static List<Emp> getStatsByCountry() {
+		String sql = "select c.country_name, count(*) CNT"
+				+ "			 from employees e"
+				+ "			 join departments d on e.department_id = d.department_id"
+				+ "			 join locations l on d.location_id = l.location_id"
+				+ "			 join countries c on l.country_id = c.country_id"
+				+ "			 group by country_name;";
+		Object[] objs = {};
+		return DBExecutor.executeQuery(sql, objs);
+	}
+	
+}

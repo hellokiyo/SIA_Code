@@ -1,0 +1,54 @@
+package myjdbc;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Scanner;
+
+//입사년도를 입력받아서 그 해에 입사한 사원목록을 리턴함.
+//
+//반드시 EmpDAO 클래스 내부에 넣습니다.
+//EmpDAO클래스 전체를 제출합니다.
+//비공개댓글로 제출합니다.
+public class EmpDAO1 {
+
+	public static void main(String[] args) throws Exception {
+		System.out.println("입사년도를 입력해주세요 (ex 2001): ");
+		Scanner scan = new Scanner(System.in);
+		int hireDate = scan.nextInt();
+		while(hireDate != 0) {
+			System.out.println(hireDate);
+			List<Emp> empList = getEmpListByHireDate(hireDate);
+			for (Emp emp : empList) {
+				System.out.println(emp);
+			}
+			System.out.print("입사년도(0은 종료) : ");
+			hireDate = scan.nextInt();
+		}
+
+	}
+	public static List<Emp> getEmpListByHireDate(int hireDate) throws Exception {
+		List<Emp> result = new ArrayList<Emp>();
+		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/newhr", "root", "rootroot");
+		Statement stmt = conn.createStatement();
+		
+	
+		String sql = "select * from employees where date_format = '" + hireDate + "'";
+		ResultSet rs = stmt.executeQuery(sql);
+
+		while(rs.next()) {
+			Emp emp = new Emp();
+			emp.id = rs.getInt("employee_id");
+			emp.lastName = rs.getString("last_name");
+			emp.salary = rs.getInt("salary");
+			result.add(emp);
+		}
+		return result;
+	}
+
+}

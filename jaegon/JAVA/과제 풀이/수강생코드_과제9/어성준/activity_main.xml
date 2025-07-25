@@ -1,0 +1,458 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/lotto"
+        android:layout_width="79dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="12dp"
+        android:text="추첨하기"
+        android:textSize="8sp"
+        app:iconSize="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:text="원"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView15"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.753"
+        app:layout_constraintStart_toStartOf="@+id/textView12"
+        app:layout_constraintTop_toTopOf="@+id/adultsale"
+        app:layout_constraintVertical_bias="0.333" />
+
+    <EditText
+        android:id="@+id/childsale"
+        android:layout_width="222dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:inputType="text"
+        android:textSize="8sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.375"
+        app:layout_constraintStart_toStartOf="@+id/textView13"
+        app:layout_constraintTop_toBottomOf="@+id/adultsale" />
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="35dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="36dp"
+        android:text="당첨자"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toTopOf="@+id/adultsale"
+        app:layout_constraintStart_toEndOf="@+id/entrynum"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/entrynum"
+        android:layout_width="43dp"
+        android:layout_height="33dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="4dp"
+        android:ems="10"
+        android:inputType="text"
+        android:textSize="8sp"
+        app:layout_constraintStart_toStartOf="@+id/textView16"
+        app:layout_constraintTop_toTopOf="@+id/lotto" />
+
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="53dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="248dp"
+        android:layout_marginBottom="40dp"
+        android:text="입장인원: 총"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toTopOf="@+id/adultsale"
+        app:layout_constraintEnd_toStartOf="@+id/lotto"
+        app:layout_constraintTop_toTopOf="@+id/result1"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="59dp"
+        android:layout_height="17dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="104dp"
+        android:text=" 성인 1인당"
+        android:textSize="10sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="원"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toTopOf="@+id/calbutton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.02"
+        app:layout_constraintStart_toEndOf="@+id/childsale"
+        app:layout_constraintTop_toTopOf="@+id/childsale"
+        app:layout_constraintVertical_bias="0.062" />
+
+    <EditText
+        android:id="@+id/adultsale"
+        android:layout_width="224dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="36dp"
+        android:ems="10"
+        android:inputType="text"
+        android:textSize="8sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.433"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/result1" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="61dp"
+        android:layout_height="19dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:text=" 어린이 1인당"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toStartOf="@+id/nightsale"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+    <Button
+        android:id="@+id/nightsale"
+        android:layout_width="79dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="76dp"
+        android:text="야간할인"
+        android:textSize="8sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.963"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lotto" />
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="23dp"
+        android:layout_height="15dp"
+        android:layout_marginStart="116dp"
+        android:layout_marginTop="12dp"
+        android:text="   명"
+        android:textSize="8sp"
+        app:layout_constraintEnd_toStartOf="@+id/textView18"
+        app:layout_constraintHorizontal_bias="0.145"
+        app:layout_constraintStart_toStartOf="@+id/textView16"
+        app:layout_constraintTop_toTopOf="@+id/lotto" />
+
+    <TextView
+        android:id="@+id/result1"
+        android:layout_width="151dp"
+        android:layout_height="28dp"
+        android:layout_marginEnd="4dp"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/lotto"
+        app:layout_constraintEnd_toStartOf="@+id/lotto"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.666" />
+
+    <Button
+        android:id="@+id/calbutton"
+        android:layout_width="88dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="116dp"
+        android:layout_marginEnd="4dp"
+        android:text="계산"
+        android:textSize="8sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView28"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nightsale"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/entryview"
+        android:layout_width="136dp"
+        android:layout_height="17dp"
+        android:layout_marginTop="144dp"
+        android:layout_marginEnd="16dp"
+        android:textSize="8sp"
+        app:layout_constraintEnd_toStartOf="@+id/calbutton"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/textView22"
+        app:layout_constraintTop_toBottomOf="@+id/childsale" />
+
+    <TextView
+        android:id="@+id/textView25"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="88dp"
+        android:layout_marginTop="132dp"
+        android:text="원"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/calbutton"
+        app:layout_constraintStart_toEndOf="@+id/textView22"
+        app:layout_constraintTop_toBottomOf="@+id/nightsale"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textView23"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="76dp"
+        android:layout_marginEnd="256dp"
+        android:text="입장료"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/childnum" />
+
+    <EditText
+        android:id="@+id/childnum"
+        android:layout_width="34dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="68dp"
+        android:layout_marginEnd="204dp"
+        android:ems="10"
+        android:inputType="text"
+        android:textSize="8sp"
+        app:layout_constraintBottom_toTopOf="@+id/entryview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/childsale"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textView21"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="248dp"
+        android:layout_marginBottom="36dp"
+        android:text="어린이 수"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView23"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/childsale"
+        app:layout_constraintVertical_bias="0.712" />
+
+    <TextView
+        android:id="@+id/textView22"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="76dp"
+        android:text="명"
+        android:textSize="8sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView25"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.524"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/childsale"
+        app:layout_constraintVertical_bias="0.127" />
+
+    <EditText
+        android:id="@+id/adultnum"
+        android:layout_width="34dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="64dp"
+        android:ems="10"
+        android:inputType="text"
+        android:textSize="8sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView23"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/childsale"
+        app:layout_constraintVertical_bias="0.076" />
+
+    <TextView
+        android:id="@+id/textView20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="92dp"
+        android:text="명"
+        android:textSize="8sp"
+        app:layout_constraintBottom_toBottomOf="@+id/childnum"
+        app:layout_constraintStart_toStartOf="@+id/adultnum"
+        app:layout_constraintTop_toBottomOf="@+id/textView13"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/textView19"
+        android:layout_width="33dp"
+        android:layout_height="18dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="76dp"
+        android:text="성인 수"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toStartOf="@+id/calbutton"
+        app:layout_constraintHorizontal_bias="0.011"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView13" />
+
+    <EditText
+        android:id="@+id/childcostcost"
+        android:layout_width="225dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="104dp"
+        android:ems="10"
+        android:inputType="text"
+        android:textSize="8sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.413"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/childnum" />
+
+    <TextView
+        android:id="@+id/textView27"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="116dp"
+        android:text="어린이 1인당"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toStartOf="@+id/textView23"
+        app:layout_constraintHorizontal_bias="0.145"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/adultnum" />
+
+    <TextView
+        android:id="@+id/textView28"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="92dp"
+        android:text="원"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/childcostcost"
+        app:layout_constraintTop_toTopOf="@+id/childcostcost" />
+
+    <EditText
+        android:id="@+id/adultcostcost"
+        android:layout_width="226dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="44dp"
+        android:ems="10"
+        android:inputType="text"
+        android:textSize="8sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.427"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/childcostcost" />
+
+    <TextView
+        android:id="@+id/textView29"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="92dp"
+        android:text="원"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.991"
+        app:layout_constraintStart_toStartOf="@+id/adultcostcost"
+        app:layout_constraintTop_toTopOf="@+id/adultcostcost" />
+
+    <TextView
+        android:id="@+id/textView26"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        android:text="성인 1인당"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.054"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView27" />
+
+    <TextView
+        android:id="@+id/nowtime"
+        android:layout_width="144dp"
+        android:layout_height="14dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="28dp"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toTopOf="@+id/adultnum"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView13"
+        app:layout_constraintVertical_bias="0.678" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="103dp"
+        android:layout_height="17dp"
+        android:layout_marginTop="12dp"
+        android:text="단체 할인: 5명 이상 20%"
+        android:textSize="10sp"
+        app:layout_constraintStart_toStartOf="@+id/textView26"
+        app:layout_constraintTop_toBottomOf="@+id/adultcostcost" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="164dp"
+        android:layout_marginBottom="116dp"
+        android:text="오후 6시부터 야간 할인이 적용됩니다."
+        android:textSize="10sp"
+        app:layout_constraintBottom_toTopOf="@+id/entryview"
+        app:layout_constraintEnd_toStartOf="@+id/nightsale"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="44dp"
+        android:text="1인당 요금"
+        app:layout_constraintBottom_toTopOf="@+id/textView27"
+        app:layout_constraintEnd_toStartOf="@+id/textView23"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.934" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="입장료 계산기"
+        app:layout_constraintBottom_toTopOf="@+id/nowtime"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView13" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="8dp"
+        android:text="이벤트"
+        app:layout_constraintBottom_toTopOf="@+id/textView16"
+        app:layout_constraintEnd_toStartOf="@+id/entrynum"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="252dp"
+        android:text="야간할인"
+        app:layout_constraintEnd_toStartOf="@+id/lotto"
+        app:layout_constraintTop_toBottomOf="@+id/textView16" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

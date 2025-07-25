@@ -1,0 +1,11 @@
+package myjdbc;
+
+public class ClassTest2 {
+	public static void main(String[] args) {
+		Util.getName();
+	}
+}
+
+calss Util{
+	
+}

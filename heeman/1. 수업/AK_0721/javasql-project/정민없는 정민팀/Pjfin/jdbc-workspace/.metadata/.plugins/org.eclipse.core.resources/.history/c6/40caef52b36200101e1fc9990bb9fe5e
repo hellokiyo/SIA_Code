@@ -1,0 +1,15 @@
+package myjdbc;
+
+import java.io.FileReader;
+import java.io.IOException;
+
+public class ExceptionTest3 {
+
+	public static void main(String[] args) throws IOException {
+		// TODO Auto-generated method stub
+		FileReader fr = new FileReader("list.txt");
+		int read = fr.read();
+		System.out.println(read);
+	}
+
+}

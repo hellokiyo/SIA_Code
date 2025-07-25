@@ -1,0 +1,44 @@
+package myjdbc;
+
+public class PersonTest {
+
+	public static void main(String[] args) {
+		Person person1 = new Person();
+		Person person2 = new Person("정태수",25);
+		Person person3 = new Person("정태호",24);
+
+		person1.selfIntroduce();
+		person2.selfIntroduce();
+		System.out.println("전체 인구수: " + Person.getPopulation());
+	}
+
+}
+
+class Person{
+	static int numberOfPerson;
+	int age;
+	String name;
+
+	Person(){
+		name = "Anonymous";
+		age = 12;
+		numberOfPerson ++;
+	}
+	
+	
+
+	Person(String name, int age){
+		this.name = name;
+		this.age = age;
+		numberOfPerson ++;
+	}
+	
+	void selfIntroduce(){
+		System.out.println("내 이름은 " + name + "이며, 나이는 " + age + "살 입니다");
+	}
+	
+	static int getPopulation() {
+		
+		return numberOfPerson;
+	}
+}

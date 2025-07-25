@@ -1,0 +1,28 @@
+package myjdbc;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
+public class ExceptionTest3 {
+
+	public static void main(String[] args)  {
+		// TODO Auto-generated method stub
+		FileReader fr = null;
+		try {
+			fr = new FileReader("list.txt");
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		int read = 0;
+		try {
+			read = fr.read();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println((char)read);
+	}
+
+}

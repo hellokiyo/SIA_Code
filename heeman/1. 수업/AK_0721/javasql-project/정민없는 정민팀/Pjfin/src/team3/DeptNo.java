@@ -1,0 +1,78 @@
+package team3;
+
+import java.io.FileReader;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
+import java.util.Scanner;
+
+public class DeptNo { // => CLASS명 DepNo => DeptNo로 수정
+	public static void searchByDeptNo() throws Exception { // 메서드명 searchByDepNo => searchByDeptNo로 수정
+
+		// 3. 부서번호로 직원정보 출력
+		Scanner scan2 = new Scanner(System.in);
+
+		while (true) {
+			System.out.print("부서번호를 입력하세요(종료 : 0) : ");
+			int deptNo = scan2.nextInt();
+
+			if (deptNo == 0) {
+				System.out.println("직무 검색을 종료합니다.");
+				break;
+			}
+
+			try {
+				List<Emp> result2 = getEmpListByDeptNo(deptNo);
+				if (result2.isEmpty()) {
+					System.out.println("입력하신 부서번호에 해당하는 직원이 없습니다.");
+				} else {
+					for (Emp emp : result2) {
+						System.out.println(emp);
+					}
+				}
+			} catch (Exception e) {
+				System.err.println("직무 검색 중 오류 발생: " + e.getMessage());
+				e.printStackTrace();
+			}
+		}
+
+	}
+
+	public static List<Emp> getEmpListByDeptNo(int deptNo) throws Exception {
+		List<Emp> result2 = new ArrayList<Emp>();
+
+		Properties props = new Properties();
+		FileReader fr = new FileReader("db-info.properties");
+		props.load(fr);
+
+		Class.forName(props.getProperty("driverClassName"));
+
+		Connection conn = DriverManager.getConnection(props.getProperty("url"), props.getProperty("userName"),
+				props.getProperty("password"));
+
+		String sql = "select concat(e.first_name, ' ', e.last_name) 'full_name', e.salary, e.hire_date, d.department_name\r\n"
+				+ "from employees e join departments d on e.department_id = d.department_id\r\n"
+				+ "where d.department_id = ?";
+
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1, deptNo);
+		ResultSet rs = pstmt.executeQuery();
+		while (rs.next()) {
+			Emp emp = new Emp();
+			emp.fullName = rs.getString("full_name");
+			emp.hireDate = rs.getDate("hire_date");
+			emp.deptName = rs.getString("department_name");
+			emp.salary = rs.getInt("salary");
+			result2.add(emp);
+		}
+		rs.close();
+		pstmt.close();
+		conn.close();
+		return result2;
+	}
+
+}

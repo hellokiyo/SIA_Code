@@ -1,0 +1,31 @@
+package teamproject;
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+public class DBExecutor {
+	public static List<Emp> executeQuery(String sql, Object[] objs) {
+		List<Emp> result = new ArrayList<Emp>();
+		
+		try (Connection con = DBConnection.getConnection();
+			PreparedStatement pstmt = prepareStatement(con, sql, objs);
+			ResultSet rs = pstmt.executeQuery();
+		) {
+			while (rs.next()) {
+				result.add(Emp.eee(rs));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	static PreparedStatement prepareStatement(Connection con, String sql, Object[] objs) throws SQLException {
+		PreparedStatement pstmt = con.prepareStatement(sql);
+		for (int i=0; i<objs.length; i++) {
+			pstmt.setObject(i+1, objs[i]);
+		}
+		return pstmt;
+	}
+}

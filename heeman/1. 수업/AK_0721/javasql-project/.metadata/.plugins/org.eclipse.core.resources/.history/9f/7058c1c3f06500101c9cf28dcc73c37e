@@ -1,0 +1,211 @@
+import java.util.List;
+import java.util.Scanner;
+
+// 기능 클래스 (사용자에게 입력받고, 정보를 출력해주는 기능 구현)
+public class Function {
+
+	static Scanner scan = new Scanner(System.in);
+
+	// 1번 기능 : 직원 이름으로 직원정보 검색
+	public void searchEmployeeByName() throws Exception {
+		while (true) {
+			System.out.print("\n직원이름 (ex. steven King, 종료는 0) : ");
+			String input = scan.nextLine();		
+			if (input.equals("0"))
+				break;		
+			String[] name = input.split(" ");
+			if (name.length != 2) {
+				System.out.println("이름과 성을 공백으로 구분해서 입력하세요 (예: Steven King)");
+				continue;
+			} 	
+			String firstName = name[0];
+			String lastName = name[1];	
+			try {
+				Emp emp = EmpDAO.getEmpByFirstNLastName(firstName, lastName);
+				if (emp == null || emp.employeeId == 0) {
+					System.out.println("직원 정보를 찾을 수 없습니다.");
+				} else {
+					Emp.printColumnFirstNLastName();
+					System.out.println(emp.toStringFirstNLastName());
+				}
+			} catch (Exception e) { 
+				System.out.println("오류 발생 : " + e.getMessage());
+			}
+		}
+	}
+
+	// 2번 기능 : 입사년도로 해당 입사년도의 직원정보 검색
+	public void searchEmployeeByHireYear() throws Exception {
+		while (true) {
+			System.out.print("\n입사년도 입력 (ex. 2015, 종료는 0) : ");
+			String input = scan.nextLine();
+			if (input.equals("0"))
+				break;
+			try {
+				int year = Integer.parseInt(input);
+				List<Emp> empListByYear = EmpDAO.getEmpListByYear(year);
+				if (empListByYear.isEmpty()) {
+					System.out.println(year + "년에 입사한 직원이 없습니다.");
+				} else {
+					System.out.println(year + "년에 입사한 직원 목록:");
+					Emp.printColumnName();
+					for (Emp emp : empListByYear) {
+						System.out.println(emp);
+					}
+					System.out.println("\n" + year + "년도에 입사한 직원 수 : " + empListByYear.size() + "명");
+				}
+			} catch (NumberFormatException e) {
+				System.out.println("오류 발생 (입력은 숫자만 가능합니다.): " + e.getMessage());
+			}
+		}
+	}
+
+	// 3번 기능 : 부서번호로 해당 부서의 부서원정보 검색
+	public void searchEmployeeByDeptNo() throws Exception {
+		while (true) {
+			System.out.print("\n부서번호 입력 (ex. 90, 종료는 0) : ");
+			String input = scan.nextLine();
+			if (input.equals("0"))
+				break;
+			try {
+				int depId = Integer.parseInt(input);
+				List<Emp> empListBydepId = EmpDAO.getEmpListBydepId(depId);
+				if (empListBydepId.isEmpty()) {
+					System.out.println(depId + "부서번호의 직원이 없습니다.");
+				} else {
+					System.out.println("부서번호" + depId + "의 직원 목록");
+					Emp.printColumnName();
+					for (Emp emp : empListBydepId) {
+						System.out.println(emp);
+					}
+					System.out.println("부서번호가 " + input + "인 부서에 근무하는 직원 수 " + empListBydepId.size() + "명");
+				}
+			} catch (NumberFormatException e) {	
+				System.out.println("오류 발생 : " + e.getMessage());
+			}
+		}
+
+	}
+
+	// 4번 기능 : 직무로 해당 직무의 직원정보 검색
+	public void searchEmployeeByJobId() {
+
+		while (true) {
+			System.out.print("\n직무코드 입력 (ex. IT_PROG, 종료는 0) : ");
+			String jobId = scan.nextLine().trim();
+			if (jobId.equals("0"))
+				break;
+			try { 
+				List<Emp> empListByjobId = EmpDAO.getEmpListByjobId(jobId.toUpperCase());
+				if (empListByjobId.isEmpty()) {
+					System.out.println("직무코드 '" + jobId + "'에 해당하는 직원이 없습니다.");
+				} else {
+					System.out.println("직무코드 '" + jobId + "'의 직원 목록");
+					Emp.printColumnName();
+					for (Emp emp : empListByjobId) {
+						System.out.println(emp);
+					}
+					System.out.println("직무번호가 " + jobId + "인 직원 수 : " + empListByjobId.size() + "명");
+				}
+			} catch (Exception e) {
+				System.out.println("오류 발생: " + e.getMessage());
+			}
+		}
+	}
+
+	// 5번 기능 : 도시이름으로 해당 도시에 근무하는 직원정보 검색
+	public void searchEmployeeByCity() {
+		while (true) {
+			System.out.print("\n도시이름 입력 (ex. Seattle, 종료는 0)): ");
+			String city = scan.nextLine().trim();
+			if (city.equals("0"))
+				break;
+			try {
+				List<Emp> empListBycityName = EmpDAO.getEmpListBycityId(city.toUpperCase());
+				if (empListBycityName.isEmpty()) {
+					System.out.println("직무코드 '" + city + "'에 해당하는 직원이 없습니다.");
+				} else {
+					System.out.println("직무코드 '" + city + "'의 직원 목록");
+					Emp.printColumnName();
+					for (Emp emp : empListBycityName) {
+						System.out.println(emp);
+					}
+					System.out.println("도시이름이 " + city + "인 도시에서 근무하는 직원 수 : " + empListBycityName.size() + "명");
+				}
+			} catch (Exception e) {
+				System.out.println("오류 발생 : " + e.getMessage());
+			}
+		}
+	}
+
+	// 6번 기능 : 부서장 성으로 부서원 정보 검색
+	public void searchEmployeeByManagerLastName() throws Exception {
+		while (true) {
+			System.out.printf("\n부서장의 성 입력 (ex. King, 종료는 0) : ");
+			String getLastName = scan.nextLine();
+			if (getLastName.equals("0"))
+				break;
+			try {
+				List<Emp> empList = EmpDAO.getDeptHeadLastName(getLastName);
+				Emp.printColumnName();
+				for (Emp emp : empList) {
+					System.out.println(emp);
+				}
+				System.out.println("부서장 성이 " + getLastName + "인 부서에서 근무하는 직원 수 : " + empList.size() + "명");
+			} catch (Exception e) {
+				System.out.println("오류 발생: " + e.getMessage());
+			}
+		}
+	}
+
+	// 7번 기능 : 나라이름으로 해당 나라에 근무하는 직원정보 검색
+	public void searchEmployeeByCountry() throws Exception {
+		while (true) {
+			System.out.print("\n나라이름 (ex. canada, 종료는 0) : ");
+			String country = scan.nextLine();
+			if (country.equals("0"))
+				break;
+			try {
+				List<Emp> empList = EmpDAO.getEmpListByCountryName(country);
+				Emp.printColumnName();
+				for (Emp emp : empList) {
+					System.out.println(emp);
+				}
+				System.out.println(country + "에서 근무하는 직원 수 : " + empList.size() + "명");
+			} catch (Exception e) {
+				System.out.println("오류 발생 : " + e.getMessage());
+			}
+		}
+	}
+
+	// 8번 기능 : 근속 연차에 따른 급여 현황
+	public void upAggregate() throws Exception {
+		List<Aggregate> aggregateTenur = AggregateDAO.getAggregate();
+		System.out.println("=========================연차에 따른 급여 현황========================");
+		Aggregate.printColumnName();
+		for (Aggregate aggregate : aggregateTenur) {
+			System.out.println(aggregate);
+		}
+		System.out.println("==================================================================");
+		System.out.print("메뉴화면으로 돌아가려면 0 입력 : ");
+		String input = scan.nextLine();
+		if (input.equals("0"))
+			return;
+	}
+
+	// 9. 연봉왕은 누구?
+	public void searchByHighestSalary() throws Exception {
+		List<Aggregate> aggregateSalary = AggregateDAO.getWhoIsBestSalary();
+		System.out.println("\n=================돈 버는 속도는 각자 다르다=================");
+		Aggregate.printColumnName2();
+		for (Aggregate aggregate : aggregateSalary) {
+			System.out.println(aggregate.
+					toStringWhoIsBestSalary());
+		}
+		System.out.println("=====================================================");
+		System.out.print("메뉴화면으로 돌아가려면 0 입력 : ");
+		String input = scan.nextLine();
+		if (input.equals("0"))
+			return;
+	}
+}

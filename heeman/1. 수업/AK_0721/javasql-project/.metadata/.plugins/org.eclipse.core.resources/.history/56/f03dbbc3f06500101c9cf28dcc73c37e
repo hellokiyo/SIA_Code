@@ -1,0 +1,68 @@
+import java.util.Scanner;
+
+// 메인 클래스 (메뉴)
+public class EMPManager {
+	public static void main(String[] args) throws Exception {
+
+		Scanner scan1 = new Scanner(System.in);
+		Function func = new Function();
+		Emp emp = new Emp();
+
+		int selectNo = -1;
+
+		while (selectNo != 10) {
+			System.out.println("\n------------------------------\n heemancompany 직원정보 조회 시스템 \n------------------------------");
+			System.out.println("1. 직원 이름을 통한 직원정보 검색 기능");
+			System.out.println("2. 입사년도 별 직원정보 검색 기능");
+			System.out.println("3. 부서번호 별 직원정보 검색 기능");
+			System.out.println("4. 직무 별 직원정보 검색 기능");
+			System.out.println("5. 도시 별 직원정보 검색 기능");
+			System.out.println("6. 부서장 성 별 부서원 검색 기능");
+			System.out.println("7. 나라 별 근무하는 직원 검색 기능");
+			System.out.println("8. 근속 연차에 따른 급여 현황 ");
+			System.out.println("9. 연봉왕은 누구?");
+			System.out.println("10. 종료");
+			
+			System.out.print("번호 입력 : ");
+			selectNo = scan1.nextInt();
+			scan1.nextLine();
+			
+			switch (selectNo) {
+			case 1: // 직원 이름으로 검색
+				func.searchEmployeeByName();
+				break;
+			case 2: // 입사년도로 검색
+				func.searchEmployeeByHireYear();
+				break;
+			case 3: // 부서번호로 검색
+				func.searchEmployeeByDeptNo();
+				break;
+			case 4: // 직무로 검색
+				func.searchEmployeeByJobId();
+				break;
+			case 5: //도시로 검색
+				func.searchEmployeeByCity();
+				break;
+			case 6: //부서장 성으로 검색
+				func.searchEmployeeByManagerLastName();
+				break;
+			case 7: // 나라별 직원 검색
+				func.searchEmployeeByCountry();
+				break;
+			case 8: //연차에 따른 급여현황 - 통계함수 사용
+				func.upAggregate();
+				break;
+			case 9: // 연봉왕 검색
+				func.searchByHighestSalary();
+				break;
+			case 10:
+				System.out.println("\n---^0^---프로그램을 종료합니다.");
+				break;
+			default:
+				System.out.println("메뉴에 없는 기능입니다. 다시 선택하십시오.");
+			}
+		}
+		scan1.close();
+
+	}
+}

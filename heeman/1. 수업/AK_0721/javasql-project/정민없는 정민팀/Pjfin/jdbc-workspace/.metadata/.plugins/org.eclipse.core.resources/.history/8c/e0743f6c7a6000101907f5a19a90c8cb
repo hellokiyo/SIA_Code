@@ -1,0 +1,16 @@
+package myjdbc;
+
+public class ArrayTest {
+
+	public static void main(String[] args) {
+		// array : 배열 , 선언, 생성, 할당, 참조
+		// int[10] list; // 선언할 때 갯수를 지정하지 않는다
+		int [] list;
+		int list2[];
+		// list = new int []; // 생성할 땐 갯수를 지정해야한다
+		list = new int[];
+		list[0] = 55;
+		list[10] = 100;
+	}
+
+}

@@ -1,0 +1,22 @@
+package basic;
+
+public class PolymorphismTest {
+	public static void main(String[] args) {
+		System.out.println(1); // int형 1 호출
+		System.out.println("1"); // String형 1 호출 
+		change(1); // 메소드 실행
+		change("1");
+	}
+
+	// overload 메소드 재정의
+	private static void change(String string) {
+		// TODO Auto-generated method stub
+		
+	}
+	// overload 
+	private static void change(int i) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

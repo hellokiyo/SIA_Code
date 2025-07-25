@@ -1,0 +1,17 @@
+package myjdbc;
+
+public class FunctionTest {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		print();// 메소드를 호출(call), 실행(execute)했는데 존재하지 않는다
+		// 메서드 정의, 선언, 실행, 호출
+		
+	}
+	// 메서드 정의 define, definition
+	private static void print() {
+		// TODO Auto-generated method stub
+		System.out.println("Hello");
+	}
+
+}

@@ -1,0 +1,290 @@
+package teamproject;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
+
+public class EmpService {
+	
+	public static Map<String, EmpMethod> statsMap = new HashMap<>();
+	
+	static {
+		statsMap.put("이름", EmpService::printEmpListByName);
+		statsMap.put("입사년도", EmpService::printEmpListByHireYear);
+		statsMap.put("부서번호", EmpService::printEmpListByDeptNo);
+		statsMap.put("직무", EmpService::printEmpListByJobId);
+		statsMap.put("도시", EmpService::printEmpListByCity);
+		statsMap.put("급여", EmpService::printStatsBySal);
+		statsMap.put("부서별 급여", EmpService::printAvgSalByDept);
+		statsMap.put("부서장", EmpService::printMemByDeptMngr);
+		statsMap.put("나라", EmpService::printEmpListByCountry);
+	}
+	
+	public static void printEmpListByName(String name) {
+		if(name.isEmpty()) {
+			System.out.println("입력값이 없습니다.");
+			return;
+		}
+		
+		Scanner namescan = new Scanner(name);
+		List<Emp> empList = EmpDAO.searchByName(namescan);
+		
+		if (empList==null || empList.isEmpty()) {
+			System.out.println("해당 이름의 직원이 존재하지 않습니다.");
+			return;
+		} else {
+			for (Emp emp : empList) {
+				System.out.println(" - " + emp.firstName + " " + emp.lastName);
+			}
+		}
+		return;
+	}
+	
+	public static void printEmpListByHireYear(String hireYearStr) {
+		if (hireYearStr.isEmpty()) {
+			System.out.println("입력값이 없습니다.");
+			return;
+		}
+		int hireYear;
+		try {
+			hireYear = Integer.parseInt(hireYearStr);
+		} catch (Exception e) {
+			if (hireYearStr.equals("통계")) {
+				List<Emp> statsList = EmpDAO.getStatsByHireYear();
+				if (statsList==null || statsList.isEmpty()) {
+					System.out.println("입사년도 통계를 출력할 수 없습니다.");
+					return;
+				}
+				System.out.println("📆📊 [입사년도 통계]");
+				System.out.println("===================================================");
+				for (Emp emp : statsList) {
+					System.out.println(emp.hireYearStats());
+				}
+				System.out.println("===================================================");
+				return;
+			}
+			System.out.println("잘못된 입력입니다.");
+			return;
+		}
+		Scanner hirescan = new Scanner(hireYearStr); //초기화
+		List<Emp> empList = EmpDAO.searchByHireYear(hirescan);
+		if (empList==null || empList.isEmpty()) {
+			System.out.println("해당 년도에 입사한 직원이 존재하지 않습니다.");
+			return;
+		} else {
+			System.out.println("📆 " + hireYear + "년 입사한 직원 목록");
+			for (Emp emp : empList) {
+				System.out.println(" - " + emp.firstName + " " + emp.lastName);
+			}
+		}
+		return;
+	}
+	
+	public static void printEmpListByDeptNo(String deptIdStr) {
+		if (deptIdStr.isEmpty()) {
+			System.out.println("입력값이 없습니다.");
+			return;
+		}
+		int deptId;
+		try {
+			deptId = Integer.parseInt(deptIdStr);
+		} catch (Exception e) {
+			if (deptIdStr.equals("통계")) {
+				List<Emp> statsList = EmpDAO.getStatsByDeptNo();
+				if (statsList==null || statsList.isEmpty()) {
+					System.out.println("부서번호 통계를 출력할 수 없습니다.");
+					return;
+				}
+				System.out.println("🗂️📊 [부서번호 통계]");
+				System.out.println("===================================================");
+				for (Emp emp : statsList) {
+					System.out.println(emp.deptNoStats());
+				}
+				System.out.println("===================================================");
+				return;
+			}
+			System.out.println("잘못된 입력입니다.");
+			return;
+		}
+		
+		Scanner deptscan = new Scanner(deptIdStr);
+		List<Emp> empList = EmpDAO.searchByDeptNo(deptscan);
+		if (empList==null || empList.isEmpty()) {
+			System.out.println("해당 부서에 직원이 존재하지 않거나 부서 번호가 잘못되었습니다.");
+			return;
+		} else {
+			System.out.println("🗂️ " + deptId + "번 부서 내 직원 목록");
+			for (Emp emp : empList) {
+				System.out.println(" - " + emp.firstName + " " + emp.lastName);
+			}
+		}
+		return;
+	}
+	
+	public static void printEmpListByJobId(String jobId) {
+		if (jobId.isEmpty()) {
+			System.out.println("입력값이 없습니다.");
+			return;
+		} else if (jobId.equals("통계")) {
+			List<Emp> statsList = EmpDAO.getStatsByJobId();
+			if (statsList==null || statsList.isEmpty()) {
+				System.out.println("직무 통계를 출력할 수 없습니다.");
+				return;
+			}
+			System.out.println("📝📊 [직무 통계]");
+			System.out.println("===================================================");
+			for (Emp emp : statsList) {
+				System.out.println(emp.jobIdStats());
+			}
+			System.out.println("===================================================");
+			return;
+		}
+		
+		Scanner jobscan = new Scanner(jobId);
+		List<Emp> empList = EmpDAO.searchByJobId(jobscan);
+		if (empList==null || empList.isEmpty()) {
+			System.out.println("해당 직무를 수행 중인 직원이 없거나 입력이 잘못되었습니다.");
+			return;
+		} else {
+			System.out.println("📝 " + jobId + " 직무 직원 목록");
+			for (Emp emp : empList) {
+				System.out.println(" - " + emp.firstName + " " + emp.lastName);
+			}
+		}
+		return;
+	}
+	
+	public static void printEmpListByCity(String city) {
+		if (city.isEmpty()) {
+			System.out.println("입력값이 없습니다.");
+			return;
+		} else if (city.equals("통계")) {
+			List<Emp> statsList = EmpDAO.getStatsByCity();
+			if (statsList==null || statsList.isEmpty()) {
+				System.out.println("잘못된 입력입니다. 도시 통계를 출력할 수 없습니다.");
+				return;
+			}
+			System.out.println("🏙️📊 [도시 통계]");
+			System.out.println("===================================================");
+			for (Emp emp : statsList) {
+				System.out.println(emp.cityStats());
+			}
+			System.out.println("===================================================");
+			return;
+		}
+		
+		Scanner cityscan = new Scanner(city);
+		List<Emp> empList = EmpDAO.searchByCity(cityscan);
+		if (empList==null || empList.isEmpty()) {
+			System.out.println("잘못된 입력입니다. 해당 도시에서 근무하는 직원을 출력할 수 없습니다.");
+			return;
+		} else {
+			System.out.println("🏙️ " + city + " 내 직원 목록");
+			for (Emp emp : empList) {
+				System.out.println(" - " + emp.firstName + " " + emp.lastName);
+			}
+		}
+		return;
+	}
+	
+	public static void printStatsBySal(String ignored) {
+		
+		List<Emp> statsList = EmpDAO.getStatsBySal();
+		if (statsList==null || statsList.isEmpty()) {
+			System.out.println("급여 통계를 출력할 수 없습니다.");
+			return;
+		}
+		System.out.println("💰 [급여 통계]");
+		System.out.println("===================================================");
+		
+		for (Emp emp : statsList) {
+			System.out.println(emp.salStats());
+		}
+		System.out.println("===================================================");
+		return;
+	}
+	
+	public static void printAvgSalByDept(String ignored) {
+		List<Emp> statsList = EmpDAO.getAvgSalByDept();
+		if (statsList==null || statsList.isEmpty()) {
+			System.out.println("부서별 평균 급여를 출력할 수 없습니다.");
+			return;
+		}
+		System.out.println("💸 [부서별 평균 급여]");
+		System.out.println("===================================================");
+		
+		for (Emp emp : statsList) {
+			System.out.println(emp.avgSal());
+		}
+		System.out.println("===================================================");
+		return;
+	}
+	
+	public static void printMemByDeptMngr(String deptMngrFirstName) {
+		if (deptMngrFirstName.isEmpty()) {
+			System.out.println("입력값이 없습니다.");
+			return;
+		} else if (deptMngrFirstName.equals("통계")) {
+			List<Emp> statsList = EmpDAO.getMemStatsByDeptMngr();
+			if (statsList==null || statsList.isEmpty()) {
+				System.out.println("잘못된 입력입니다. 부서원 통계를 출력할 수 없습니다.");
+				return;
+			}
+			System.out.println("👨‍💼📊 [부서원 통계]");
+			System.out.println("===================================================");
+			for (Emp emp : statsList) {
+				System.out.println(emp.deptMemStats());
+			}
+			System.out.println("===================================================");
+			return;
+		}
+		
+		Scanner mngrscan = new Scanner(deptMngrFirstName);
+		List<Emp> empList = EmpDAO.searchMemByDeptMngr(mngrscan);
+		if (empList==null || empList.isEmpty()) {
+			System.out.println("잘못된 입력입니다. 해당하는 부서원을 출력할 수 없습니다.");
+			return;
+		} else {
+			System.out.println("👨‍💼 " + deptMngrFirstName + " 내 직원 목록");
+			for (Emp emp : empList) {
+				System.out.println(" - " + emp.firstName + " " + emp.lastName);
+			}
+		}
+		return;
+	}
+	
+	public static void printEmpListByCountry(String countryName) {
+		if (countryName.isEmpty()) {
+			System.out.println("입력값이 없습니다.");
+			return;
+		} else if (countryName.equals("통계")) {
+			List<Emp> statsList = EmpDAO.getStatsByCountry();
+			if (statsList==null || statsList.isEmpty()) {
+				System.out.println("잘못된 입력입니다. 나라 통계를 출력할 수 없습니다.");
+				return;
+			}
+			System.out.println("🌏📊 [나라 통계]");
+			System.out.println("===================================================");
+			for (Emp emp : statsList) {
+				System.out.println(emp.countryStats());
+			}
+			System.out.println("===================================================");
+			return;
+		}
+		
+		Scanner countryscan = new Scanner(countryName);
+		List<Emp> empList = EmpDAO.searchByCity(countryscan);
+		if (empList==null || empList.isEmpty()) {
+			System.out.println("잘못된 입력입니다. 해당 나라에서 근무하는 직원을 출력할 수 없습니다.");
+			return;
+		} else {
+			System.out.println("🌏 " + countryName + " 내 직원 목록");
+			for (Emp emp : empList) {
+				System.out.println(" - " + emp.firstName + " " + emp.lastName);
+			}
+		}
+		return;
+	}
+	
+}
