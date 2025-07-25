@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+
+    <title>웹서버에서 보내온 페이지</title>
+</head>
+<body>
+<h1>첫번째 페이지</h1>
+
+<p><%= name %>님 환영합니다.</p>  <!--context1로 전달-->
+
+<form action="/page/customer">
+    <button>고객관리</button>
+</form>
+
+<form action="/page/product">
+    <button>상품관리</button>
+</form>
+
+<form action="/page/Management">
+    <button>매출관리</button>
+</form>
+
+
+
+</body>
+</html>
