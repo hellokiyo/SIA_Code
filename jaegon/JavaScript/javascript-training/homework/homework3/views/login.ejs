@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+
+    <title>로그인 페이지</title>
+</head>
+<body>
+    <div>
+        <h1><%=name%>의 로그인 서버</h1>
+        <h3>로그인하세요</h3>
+    </div>
+
+    <div> <!--아래 js에서 form태그 만들어줌-->
+        <input type="text" id="input1">
+        <input type="password" id="input2">
+
+        <button onclick="login()">로그인</button>
+    </div>
+
+
+    <script>
+        function login() {
+            console.log(`login 함수 실행됨`);
+
+            const form = document.createElement('form');
+
+            form.setAttribute('action','/menu');
+            //actin은 어디다 보낼지 정하는거  form안에  action속성을 이용해서 /page/main의 경로url요청
+            form.setAttribute('method','get');
+            // method는 데이터를 서버에 전송할 때 사용할 방식 지정
+            // get 방식은 요청할 값을 주소창에 ? 뒤에 붙여서 전송한다.
+            // 서버에 보내는 값이 주소에 보임
+            // get 방식은 데이터가 주소창에 그대로 노출되기 때문에
+            // 개인정보, 비밀번호 같은 민감한 정보에는 위험하다.
+
+            const input1 = document.querySelector('#input1');
+            // querySelector는 요소를 찾아주는거다
+            // #는 id를 의미함
+            // html안에 id(#)가 input1인걸 찾음
+            // input1에다가 찾은 input1을 가져옴
+            const input2 = document.querySelector('#input2');
+
+
+            const data1 = document.createElement('input');
+            // data1에 input태그 생성
+            data1.setAttribute('type','hidden')
+            //input 태그안에 type 속성 추가
+            data1.setAttribute('name','id')
+            //input 태그안에 name 속성 추가
+            data1.setAttribute('value',input1.value)
+            //input 태그안에 value 속성 추가
+            form.appendChild(data1);
+            //form 태그안에 지금까지 입력한 input 태그를 넣음
+
+
+            const data2 = document.createElement('input');
+            data2.setAttribute('type','hidden')
+            data2.setAttribute('name','pw')
+            data2.setAttribute('value',input2.value)
+            form.appendChild(data2);
+
+            document.body.appendChild(form);
+            //자식태그
+
+            form.submit();
+            //이 한줄로 버튼을 눌르는 역할을 함
+
+        }
+    </script>
+
+</body>
+</html>
