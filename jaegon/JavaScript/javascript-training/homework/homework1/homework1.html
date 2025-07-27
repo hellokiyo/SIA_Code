@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8"> <!-- 문자 인코딩 설정 -->
+    <title>과제 01 입장료 계산기 만들기</title> <!-- 브라우저 탭에 표시될 제목 -->
+
+    <style>
+        h2 {
+            margin: 0 auto;
+        }
+
+        p {
+            text-align: left;
+        }
+
+
+        #output2 {
+            width: 60px;
+
+            position: relative;
+            left: 90px;
+        }
+
+        .group1 {
+            padding-bottom: 30px;
+            border: 2px solid blue;
+            width: 370px;
+
+        }
+
+        .group2 {
+            border: 2px solid blue;
+            justify-content: space-around;
+            padding-top: 20px;
+            position: relative;
+            left: 10px;
+            top: 10px;
+            width: 340px;
+        }
+
+        .btn {
+            position: absolute;
+            left: 280px;
+            top: 100px;
+            padding: 18px 25px;
+        }
+
+    </style>
+</head>
+
+<body>
+<h2>화면구성</h2>  <!-- 제목 표시 -->
+
+<div class="group1"> <!-- 전체 폼 영역 -->
+
+    <span>성인 수</span> <input id="input1" type="text" value=""><span>명</span>
+    <button class="btn" onclick="fee()">계산</button> <!-- 클릭 시 add() 함수 실행 -->
+
+
+    <!--라디오 버튼 안눌르면 alart로 단체할인 여부 묻는거 해보고 싶다.-->
+    <p></p>
+    <span>어린이 수</span> <input id="input2" type="text" value=""><span>명</span>
+
+
+    <div> <!-- 결과 출력 영역 -->
+        <p></p>
+        <p></p>
+        <span>입장료</span>
+        <input id="output1" type="text"> <!--입장료 계산 출력-->
+    </div>
+
+    <div> <!-- 라디오 버튼: 성별 선택 -->
+        <span>단체할인</span>
+        <input id="yes" name="yesno" type="radio" value="yes"><span>예</span>
+        <input id="no" name="yesno" type="radio" value="no"><span>아니요</span>
+        <img id="output2" src="" style="display:none">  <!--계속 바뀌는 사진-->
+    </div>
+
+    <div id="defaultFee">
+        <p>1인당 요금</p>
+
+        <div class="group2"> <!-- 1인당 요금 입력 영역 -->
+            <span>성인 1인당</span> <input id="adultFee" type="text" value="20000"><span>원</span>
+            <p></p>
+            <span>어린이 1인당</span> <input id="kidFee" type="text" value="9900"><span>원</span>
+
+            <p>단체 할인 : 5명 이상 20%</p><!-- 안내문 -->
+        </div>
+    </div>
+</div>
+
+<script>
+
+    function fee() {
+        let input1 = Number(document.querySelector('#input1').value); // 성인 수 입력값
+        let input2 = Number(document.querySelector('#input2').value); // 어린이 수 입력값
+
+        let input1Str = document.querySelector('#input1').value.trim();
+        let input2Str = document.querySelector('#input2').value.trim();
+
+        let adultFee = Number(document.querySelector('#adultFee').value); // 성인 요금
+        let kidFee = Number(document.querySelector('#kidFee').value);     // 어린이 요금
+
+        if (isNaN(input1) || isNaN(input2) || input1Str === "" || input2Str === "") { // 숫자가 아닌 값이 들어오면
+            alert(`다시 입력해주세요`); // 팝업창 표시
+            output1.innerHTML = ``; // 결과 영역 비우기
+            document.querySelector('#output2').src = "images/fail.png";
+            document.querySelector('#nightFee').style = "display:block";
+            return; // 함수 종료
+        }
+
+
+        let baseFee = input1 * adultFee + input2 * kidFee; // 기본 입장료 계산
+
+        let isGroupDiscount = document.querySelector('input[name="yesno"]:checked').value === 'yes';
+        // :는 앞에 것중 선택된 걸 의미 그리고 .value 앞에 선택된 input중에서 체크된것의 value를 뽑아온다.
+        // === 값과 타입이 모두 일치해야함
+        //!!!!!!따라서 라디오 버튼이 예 로 선택되어 있는지 확인하는 코드
+
+
+        let finalFee; // 최종 입장료
+
+        if (input1 + input2 < 5) {
+            if (isGroupDiscount) {
+                document.getElementById("no").checked = true;
+                alert("단체 할인 적용 대상이 아닙니다.")
+            }
+            finalFee = baseFee; // 할인 없음
+
+        } else if (input1 + input2 >= 5) {
+            if (!isGroupDiscount) {
+                document.getElementById("yes").checked = true;
+                alert("단체 할인 적용 대상입니다.")
+            }
+            finalFee = (baseFee * 0.8); // 20% 할인 적용
+        }
+
+
+
+        document.querySelector('#output1').value = finalFee;
+        document.querySelector('#output2').src = "images/success.png";
+        document.querySelector('#output2').style = "display:block";
+    }
+
+</script>
+
+</body>
+
+</html>
