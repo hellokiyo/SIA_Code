@@ -9,12 +9,6 @@
         h2 {
             margin: 0 auto;
         }
-
-        p {
-            text-align: left;
-        }
-
-
         #output2 {
             width: 60px;
 
@@ -160,14 +154,10 @@
     window.addEventListener('DOMContentLoaded', () => {
         console.log(`DOMContentLoaded 이벤트 호출됨.`);
 
-
-
         const a =document.querySelector('#adultFee')
         const b = document.querySelector('#kidFee')
         a.value= Number(a.value).toLocaleString();
         b.value= Number(b.value).toLocaleString();
-
-
 
         // 현재 시간 표시하기
         let now = document.querySelector('#now');
@@ -202,7 +192,6 @@
 
     }
 
-
     function fee() {
         const input1 = Number(document.querySelector('#input1').value); // 성인 수 입력값
         const input2 = Number(document.querySelector('#input2').value); // 어린이 수 입력값
@@ -220,11 +209,6 @@
             document.querySelector('#nightFee').style = "display:block";
             return; // 함수 종료
         }
-
-
-
-
-
 
         let baseFee = input1 * adultFee + input2 * kidFee; // 기본 입장료 계산
 
@@ -263,17 +247,11 @@
             finalFee = (baseFee * 0.8); // 20% 할인 적용
         }
 
-
-
         document.querySelector('#output1').value = finalFee.toLocaleString();
         document.querySelector('#output2').src = "images/success.png";
         document.querySelector('#output2').style = "display:block";
     }
 
-
 </script>
-
-
 </body>
-
 </html>
