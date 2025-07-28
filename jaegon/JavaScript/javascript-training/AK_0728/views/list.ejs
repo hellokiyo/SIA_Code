@@ -18,9 +18,20 @@
 
                 <% for (let i = 0; i < persons.length; i++) { %>
                     <tr>
-                        <td><%= persons[i].name %></td>
-                        <td><%= persons[i].age %></td>
-                        <td><%= persons[i].mobile %></td>
+                        <td class="td_name"><%= persons[i].name %></td>
+                        <td class="td_age"><%= persons[i].age %></td>
+                        <td class="td_mobile"><%= persons[i].mobile %></td>
+                        <td>
+                            <form id="updateBtn" action="/page/update" method="get">
+                                <button type="button" onclick="update(this)">수정</button>
+                            </form>
+                        </td>
+
+                        <td>
+                            <!--<form action="./page/delete" method="get">
+                                <button>삭제</button>
+                            </form>-->
+                        </td>
                     </tr>
                 <% } %>
             </table>
@@ -29,7 +40,40 @@
         <div>
             <a href="/page/add">추가</a>
         </div>
-        
+
+    <script>
+        function update(button) {
+            // 1. 클릭된 버튼 -> form -> tr(행) 찾기
+            const row = button.closest('tr');
+            const form = button.closest('form');
+
+
+            const name = row.querySelector('.td_name').innerText;
+            const age = row.querySelector('.td_age').innerText;
+            const mobile = row.querySelector('.td_mobile').innerText;
+
+            const data1 = document.createElement('input');
+            data1.type ='hidden'
+            data1.name = 'userName'
+            data1.value = name;
+            form.appendChild(data1)
+
+            const data2 = document.createElement('input');
+            data2.type ='hidden'
+            data2.name = 'userAge'
+            data2.value = age;
+            form.appendChild(data2)
+
+            const data3 = document.createElement('input');
+            data3.type ='hidden'
+            data3.name = 'userMobile'
+            data3.value = mobile;
+            form.appendChild(data3)
+
+            form.submit();
+        }
+    </script>
+
 
     </body>
 </html>

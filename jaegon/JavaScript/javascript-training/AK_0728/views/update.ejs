@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>고객 관리</title>
+    </head>
+    <body>
+
+        <div>
+            <h3>고객 정보 수정</h3>
+        </div>
+
+        <div>
+            <span><%=name%></span>
+            <span><%=age%></span>
+            <span><%=mobile%></span>
+        </div>
+        <div>
+            <form action="/page/insert" method="get">
+                <input type="text" name="name" value="">
+                <input type="text" name="age" value="">
+                <input type="text" name="mobile" value="">
+                <button>수정</button>
+            </form>
+        </div>
+
+
+        <script>
+            function update() {
+
+                const form = document.createElement('form');
+                form.setAttribute('action','/page/update');
+                form.setAttribute('method','get');
+
+                const input1 = document.querySelector()
+
+            }
+        </script>
+
+    </body>
+</html>
