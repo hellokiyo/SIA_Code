@@ -1,0 +1,5 @@
+package teamproject;
+
+public interface EmpMethod {
+	void accept(String input);
+}

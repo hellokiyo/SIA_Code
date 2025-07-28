@@ -1,0 +1,45 @@
+package teamproject;
+
+import java.util.List;
+import java.util.Scanner;
+
+public class EmpMain {
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+				
+		while(true) {
+			System.out.println("찾고 싶은 조건을 입력하세요(ex. 부서번호, 이름, 직업...) [엔터 시 종료]: ");
+			String condition = scan.nextLine();
+			
+			if (condition.isEmpty()) {
+				System.out.println("프로그램을 종료합니다.");
+				break;
+			}
+			
+			EmpMethod stats = EmpService.statsMap.get(condition);
+			
+			if (stats == null) {
+				System.out.println("잘못된 검색 조건입니다.");
+				continue;
+			}
+			
+			if (condition.equals("급여")) {
+				stats.accept("");
+				continue;
+			} else if (condition.equals("부서별 급여")) {
+				stats.accept("");
+				continue;
+			}
+			
+			while (true) {
+				System.out.println(condition + "(을)를 입력해주세요[종료 입력 시 종료]: ");
+				String value = scan.nextLine();
+				if (value.equals("종료")) {
+					System.out.println("프로그램을 종료합니다.");
+					return;
+				}
+				stats.accept(value);
+			}			
+		}
+	}
+}

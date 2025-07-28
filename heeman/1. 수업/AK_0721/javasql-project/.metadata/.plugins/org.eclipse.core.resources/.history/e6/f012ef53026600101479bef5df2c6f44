@@ -1,0 +1,87 @@
+package project;
+
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+// 각 패키지들 임포트
+import employeeSearchByName11111.*;
+import employeeSearchByHireDate22222.*;
+import employeeSearchByDepartmentId33333.*;
+import employeeSearchByDepartmentName44444.*;
+import employeeSearchByCity55555.*;
+import employeeStatisticsReport6666666.*;
+import employeeSearchByManagerLastName777777777.*;
+import employeeSearchByCountry888888888888.*;
+
+public class main {
+
+	public static void main(String[] args) {
+	    Scanner mainScan = new Scanner(System.in);
+	    
+	    // 각 검색 기능 클래스 인스턴스 생성
+	    EmpMainByName 		getidByName 	= new EmpMainByName();		
+	    EmpMainByHireDate 	getidByHireDate = new EmpMainByHireDate();
+	    EmpMainByDId 		getidByDId 		= new EmpMainByDId();
+	    EmpMainByDName 		getidByDName 	= new EmpMainByDName();	
+	    EmpMainByCity 		getidByCity 	= new EmpMainByCity();	
+	    EmpMainSR 			getidSR 		= new EmpMainSR();	
+	    EmpMainByMName 		getidByMName 	= new EmpMainByMName();
+	    EmpMainByCountry 	getidByCountry	= new EmpMainByCountry();
+	    
+	    System.out.println("정보 검색 프로그램입니다.");
+	    
+	    while(true) {
+	        try {
+	        	
+	        	System.out.println("------------------------------------------");
+	        	System.out.println( 
+	        						"0. 종료\n" +
+	        						"1. 직원 이름으로 직원 정보 검색\n" +
+	    	    					"2. 입사연도로 검색\n" +
+	                                "3. 부서번호로 검색\n" +
+	                                "4. 직무로 검색\n" +
+	                                "5. 도시 이름으로 검색\n" +
+	                                "6. 통계자료 출력\n" +
+	                                "7. 부서장 성으로 부서원 검색\n" +
+	                                "8. 나라 이름으로 그 나라에 근무하는 직원 조회");
+	        	
+	        	System.out.println("-----------------------------------------");
+	        	
+	        	System.out.println("원하시는 기능의 번호를 입력해 주세요 :"); 
+	    	    
+	            int input = mainScan.nextInt(); 
+	            mainScan.nextLine();
+	            
+	            if (input == 0) {
+	                System.out.println("프로그램을 종료합니다.");
+	                break;
+	            } else if (input == 1) {
+	            	getidByName.searchByName(mainScan);
+	            } else if (input == 2) {
+	            	getidByHireDate.searchByHireDate(mainScan);
+	            } else if (input == 3) {
+	            	getidByDId.searchByDepartmentId(mainScan);
+	            } else if (input == 4) {
+	            	getidByDName.searchEmployeesByDepartment(mainScan);
+	            } else if (input == 5) {
+	            	getidByCity.searchEmployeesByCity(mainScan);
+	            } else if (input == 6) {
+	            	getidSR.generateReport(mainScan);
+	            } else if (input == 7) {
+	            	getidByMName.searchByManagerLastName(mainScan);
+	            } else if (input == 8) {
+	            	getidByCountry.searchEmployeesByCountry(mainScan);
+	            }
+	            
+	            System.out.println("메인으로 돌아갑니다."); 
+
+	        } catch (InputMismatchException e) {
+	            System.out.println("숫자를 다시 입력 바랍니다.");
+	            mainScan.next(); 					// 잘못된 입력을 소비
+	        } catch (Exception e) {
+	            System.out.println("예상치 못한 오류가 발생했습니다: " + e.getMessage());
+	        }
+	        
+	    }
+	}
+}

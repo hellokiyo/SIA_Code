@@ -1,0 +1,67 @@
+package team3;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class MainProject {
+
+	public static void main(String[] args) throws Exception {
+		Scanner sc = new Scanner(System.in);
+		MainProject stats = new MainProject();
+		
+		while (true) {
+			System.out.println("\n==== 직원 정보 조회 시스템 ====");
+			System.out.println("1. 직원의 이름으로 정보 조회");
+			System.out.println("2. 직원의 입사연도로 정보 조회");
+			System.out.println("3. 직원의 부서번호로 조회");
+			System.out.println("4. 직무로 정보 조회");
+			System.out.println("5. 근무하고 있는 도시 이름으로 조회");
+			System.out.println("6. 사내 직원 별 통계 자료");
+			System.out.println("7. 부서장의 성으로 조회"); // 부서장으로 조회 => 부서장의 성으로 조회 수정
+			System.out.println("8. 근무하는 나라의 이름으로 조회 ");
+			System.out.println("0. 종료");
+			System.out.print("메뉴 선택: ");
+			int choice = sc.nextInt();
+		
+
+			switch (choice) {
+			
+			case 1:
+				Name.searchByName();
+				break;
+			case 2:
+				HireDate.searchByHireYear();
+				break;
+			case 3:
+				DeptNo.searchByDeptNo(); // 메서드명 searchByDepNo => searchByDeptNo로 수정
+				break;
+			case 4:
+				Job.searchByJobId();
+				break;
+			case 5:
+				City.searchByCity();
+				break;
+			case 6:
+				Statis.statisRead();
+				break;
+			case 7:
+				Manager.searchByManager(); // Manger => Manager 오타 수정
+				break;
+			case 8:
+				Country.searchByCountry(); // CounTry => country 오타 수정
+				break;
+			case 0:
+				break;
+
+			}
+
+		}
+	}
+}

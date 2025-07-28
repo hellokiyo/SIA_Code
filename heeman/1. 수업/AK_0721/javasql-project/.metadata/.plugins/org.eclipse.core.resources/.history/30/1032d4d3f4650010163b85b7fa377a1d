@@ -1,0 +1,117 @@
+package teamproject;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Date;
+
+public class Emp {
+	
+	ResultSet rs;
+
+	int empId, mngrId, deptId, deptNo, avgSal, count;
+	String firstName, lastName, email, phoneNo, jobId, salary, commiPct, hireYear, salGrade, deptName, city, deptMngrFirstName, memName, countryName;
+	Date hireDate;
+
+	public static Emp eee(ResultSet rs) throws SQLException {
+		Emp emp = new Emp();
+		try {
+			emp.empId = rs.getInt("employee_id");
+			emp.firstName = rs.getString("first_name");
+			emp.lastName = rs.getString("last_name");
+			emp.email = rs.getString("email");
+			emp.phoneNo = rs.getString("phone_number");
+			emp.hireDate = rs.getDate("hire_date");
+			emp.jobId = rs.getString("job_id");
+			emp.salary = rs.getString("salary");
+			emp.commiPct = rs.getString("commission_pct");
+			emp.mngrId = rs.getInt("manager_id");
+			emp.deptId = rs.getInt("department_id");
+			emp.memName = rs.getString("concat(first_name, last_name)");
+			return emp;
+		} catch (Exception e) {
+			try {
+				emp.hireYear = rs.getString("hire_year");
+				emp.count = rs.getInt("CNT");
+				return emp;
+			} catch (Exception e2) {
+				try {
+					emp.deptNo = rs.getInt("dept_no");
+					emp.count = rs.getInt("CNT");
+					return emp;
+				} catch (Exception e3) {
+					try {
+						emp.jobId = rs.getString("job_id");
+						emp.count = rs.getInt("CNT");
+						return emp;
+					} catch (Exception e4) {
+						try {
+							emp.city = rs.getString("city");
+							emp.count = rs.getInt("CNT");
+							return emp;
+						} catch (Exception e5) {
+							try {
+								emp.salGrade = rs.getString("sal_grade");
+								emp.count = rs.getInt("CNT");
+								return emp;						
+							} catch (Exception e6) {
+								try {
+								emp.deptName = rs.getString("department_name");
+								emp.avgSal = rs.getInt("avg_sal");
+								return emp;
+								} catch (Exception e7) {
+									try {
+										emp.deptMngrFirstName = rs.getString("m.first_name");
+										emp.count = rs.getInt("CNT");
+										return emp;
+									} catch (Exception e8) {
+										emp.countryName = rs.getString("country_name");
+										emp.count = rs.getInt("CNT");
+										return emp;
+									}
+								}								
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	public String empInfo() { //이름호출전용
+		return String.format("  직원 id: %d\n  이름: %s %s\n  이메일: %s\n  전화번호: %s\n  입사일: %s\n  직업: %s\n  연봉: %s\n  커미션: %s\n  매니저 id: %d\n  부서번호: %d",
+				empId, firstName, lastName, email, phoneNo, hireDate, jobId, salary, commiPct, mngrId, deptId);
+	}
+	
+	public String hireYearStats() {
+		return String.format("입사년도: %s | %d명", hireYear, count);
+	}
+	
+	public String deptNoStats() {
+		return String.format("부서번호: %s | %d명", deptNo, count);
+	}
+	
+	public String jobIdStats() {
+		return String.format("직무: %s | %d명", jobId, count);
+	}
+	
+	public String cityStats() {
+		return String.format("도시: %s | %d명", city, count);
+	}
+	
+	public String salStats() {
+		return String.format("등급: %s | %d명", salGrade, count);
+	}
+	
+	public String avgSal() {
+		return String.format("부서명: %s | %d원", deptName, avgSal);
+	}
+	
+	public String deptMemStats() {
+		return String.format("부서장: %s | 부서원: %d명", deptMngrFirstName, count);
+	}
+	
+	public String countryStats() {
+		return String.format("나라: %s | 직원: %d명", countryName, count);
+	}
+
+}

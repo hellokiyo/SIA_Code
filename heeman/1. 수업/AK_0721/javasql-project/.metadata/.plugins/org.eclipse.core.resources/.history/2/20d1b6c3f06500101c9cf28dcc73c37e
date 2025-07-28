@@ -1,0 +1,40 @@
+// (1-7번) 직원정보 출력 기능 출력 클래스
+public class Emp {
+	public int employeeId;
+	public String firstName;
+	public String lastName;
+	public String email;
+	public String phoneNo;
+	public String hireDate;
+	public String jobId;
+	public int salary;
+	public double commission;
+	public int managerId;
+	public int departmentId;
+
+	// 2-7번 기능 출력
+	@Override
+	// 직원 정보 출력용 toString() 메서드
+	public String toString() {
+		return String.format("%-4d %-15s %-15s %-12s %-15s %-12s %-10s %,8d %10.2f", employeeId, firstName, lastName,
+				email, phoneNo, hireDate, jobId, salary, commission);
+	}
+
+	// 컬럼명 출력 - 라벨도 동일하게 맞춤
+	public static void printColumnName() {
+		System.out.printf("%-4s %-15s %-15s %-12s %-15s %-12s %-10s %8s %10s\n", "ID", "FirstName", "LastName", "Email",
+				"Phone", "HireDate", "JobID", "Salary", "Commission");
+	}
+
+	// 1번 기능 출력
+	public String toStringFirstNLastName() {
+		return String.format("%-4d %-10s %-15s %-12s %-10s %8d %10.2f %10d %10d", employeeId, email, phoneNo, hireDate,
+				jobId, salary, commission, managerId, departmentId);
+	}
+
+	public static void printColumnFirstNLastName() {
+		System.out.printf("%-4s %-10s %-15s %-12s %-10s %8s %10s %10s %10s\n", "ID", "Email", "Phone", "HireDate",
+				"JobID", "Salary", "Commission", "ManagerID", "DeptID");
+	}
+
+}

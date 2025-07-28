@@ -1,0 +1,79 @@
+<!DOCTYPE html> <!-- HTML5 문서임을 선언 -->
+
+<html>
+  <head>
+    <meta charset="UTF-8"> <!-- 한글 깨짐 방지를 위한 문자 인코딩 설정 -->
+    <title>연습</title>    <!-- 브라우저 탭에 표시될 제목 -->
+
+    <!-- ✅ 내부 CSS 스타일 정의 -->
+    <style>
+      /* p 태그에 파란 테두리 적용 */
+      p {
+        border: 2px solid blue;
+      }
+
+      /* span 태그에 초록 테두리 적용 */
+      span {
+        border: 2px solid green;
+      }
+
+      /* 이미지에 빨간 테두리 적용 */
+      img {
+        border: 2px solid red;
+      }
+
+      /* class="group1" 이 붙은 요소에 자주색 테두리 적용 */
+      .group1 {
+        border: 2px solid magenta;
+      }
+
+      /* id="my1" 이 붙은 요소에 글자색, 크기, 굵기 적용 */
+      #my1 {
+        color: red;          /* 빨간 글자색 */
+        font-size: 2em;      /* 기본보다 두 배 크기 */
+        font-weight: bold;   /* 글자 굵게 */
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>연습 첫번째</h1> <!-- 큰 제목 표시 -->
+
+    <!-- ✅ 블록 요소: 줄바꿈이 자동으로 발생하는 구조 -->
+    <div class="group1">
+      <p id="my1">연습입니다</p>    <!-- id 스타일 적용된 문장 -->
+      <p>연습입니다</p>
+      <p>연습입니다</p>
+      <p>연습입니다</p>
+    </div> <!-- ❗ 원래 코드에서 <div> 태그 잘못 닫힌 부분 수정 완료 -->
+
+    <!-- ✅ 인라인 요소: 줄바꿈 없이 옆으로 나열되는 요소들 -->
+    <div class="group1">
+      <span>테스트입니다.</span>
+      <span>테스트입니다.</span>
+      <span>테스트입니다.</span>
+    </div>
+
+    <!-- ✅ 이미지 3장: 각 이미지에 빨간 테두리 적용 -->
+    <div class="group1">
+      <img src="images/cat_stand.png" alt="서 있는 고양이">
+      <img src="images/cat_walk.png" alt="걷는 고양이">
+      <img src="images/cat_run.png" alt="달리는 고양이">
+    </div>
+
+    <!-- ✅ 입력창과 버튼 -->
+    <div>
+      <!-- 입력창 1: 빈 값 -->
+      <input type="text" value=""> 
+
+      <!-- 입력창 2: 숫자 21이 미리 채워짐 -->
+      <input type="text" value="21">  
+
+      <!-- 입력창 3: 전화번호 형식 예시 -->
+      <input type="text" value="010-1000-1000">
+
+      <!-- 확인 버튼 (JS 이벤트 없음) -->
+      <button>확인</button>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,78 @@
+package team3;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+//import pj1.Emp;
+
+public class HireDate {
+	static void searchByHireYear() throws Exception {
+
+		Scanner scan3 = new Scanner(System.in);
+
+		while (true) {
+			System.out.print("입사연도를 입력하세요(종료 : 0) : ");
+			int hireYear = scan3.nextInt();
+
+			if (hireYear == 0) {
+				System.out.println("직무 검색을 종료합니다.");
+				break;
+			}
+
+			try {
+				List<Emp> result3 = getEmpListByHireYear(hireYear);
+				if (result3.isEmpty()) {
+					System.out.println("입력하신 입사연도에 해당하는 직원이 없습니다.");
+				} else {
+					for (Emp emp : result3) {
+						System.out.println(emp);
+					}
+				}
+			} catch (Exception e) {
+				System.err.println("직무 검색 중 오류 발생: " + e.getMessage());
+				e.printStackTrace();
+			}
+		}
+
+	}
+
+	public static List<Emp> getEmpListByHireYear(int hireYear) throws Exception {
+		List<Emp> result = new ArrayList<>();
+
+		Properties props = new Properties();
+		FileReader fr = new FileReader("db-info.properties");
+		props.load(fr);
+
+		Class.forName(props.getProperty("driverClassName"));
+
+		Connection conn = DriverManager.getConnection(props.getProperty("url"), props.getProperty("userName"),
+				props.getProperty("password"));
+
+		// 코드 수정
+		String sql = "SELECT CONCAT(e.first_name, ' ', e.last_name) AS full_name, " + "e.salary, e.hire_date, "
+				+ "d.department_name " + "FROM employees e "
+				+ "JOIN departments d ON e.department_id = d.department_id " + "WHERE YEAR(e.hire_date) = ?";
+
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1, hireYear);
+		ResultSet rs = pstmt.executeQuery();
+
+		while (rs.next()) {
+			Emp emp = new Emp();
+			emp.fullName = rs.getString("full_name");
+			emp.hireDate = rs.getDate("hire_date");
+			emp.salary = rs.getInt("salary");
+			emp.deptName = rs.getString("department_name");
+			result.add(emp);
+		}
+		rs.close();
+		pstmt.close();
+		conn.close();
+		return result;
+	}
+}

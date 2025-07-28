@@ -1,0 +1,205 @@
+package com.lx;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class EmpDAO {
+	public static Scanner scan = new Scanner(System.in);
+	public static String sql = null;
+	public static String input= null;
+	
+	public static void runChoose(int num) {
+	    List<Emp> empList = null;
+
+	    try {
+            if (num == 1) {
+                System.out.println("직원 이름을 입력하세요");
+                String name = scan.nextLine();
+                empList = getEmpInfoByName(name);
+
+            } else if (num == 2) {
+                System.out.println("입사년도를 입력하세요");
+                int year = scan.nextInt();
+                empList = getEmpInfoByHireYear(year);
+
+            } else if (num == 3) {
+                System.out.println("부서번호를 입력하세요");
+                int dep_id = scan.nextInt();
+                empList = getEmpInfoByDepId(dep_id);
+
+            } else if (num == 4) {
+                System.out.println("직무를 입력하세요");
+                String job_id = scan.nextLine();
+                empList = getEmpInfoByJobId(job_id);
+
+            } else if (num == 5) {
+                System.out.println("도시이름을 입력하세요");
+                String city = scan.nextLine();
+                empList = getEmpInfoByCity(city);
+
+            } else if (num == 6) {
+                System.out.println("부서장 성을 입력하세요");
+                String dep_last = scan.nextLine();
+                empList = getEmpInfoByDepLastName(dep_last);
+
+            } else if (num == 7) {
+                System.out.println("나라이름 입력하세요");
+                String country = scan.nextLine();
+                empList = getEmpInfoByCountry(country);
+
+	        } else if (num == 8) {
+	        	boolean run = true;
+	            while(run) {
+	            	System.out.println("더 세부적으로 통계입니다 1.부서별 2.입사년도 3.나라id 0.기본화면으로");
+		            String statics_str = scan.nextLine();
+		            int statics_num = Integer.parseInt(statics_str);
+		            if (statics_num == 0) {
+		               run = false;
+		             }
+		            if (statics_num >= 1 && statics_num <= 3) {
+		               getStatics(statics_num);
+		               continue;
+		             } else if(statics_num !=0){
+		                 System.out.println("1~3 숫자로 다시 입력하세요!");
+		                continue;
+		             }
+	          	}
+	            return;
+	      }
+	            // 데이터 출력
+	            if (empList == null && empList.isEmpty()) {
+	                System.out.println("해당 데이터가 없습니다!");
+	            } else {
+	                for (int i = 0 ;i<empList.size();i++) {
+	                    System.out.println(empList.get(i));
+	                }
+	            }
+
+	       }catch (Exception e) {
+	            System.out.println("문자형태 똑바로 입력하세요!");
+	       }
+	}
+
+	
+	//1번 
+	public static List<Emp> getEmpInfoByName(String name) throws Exception {
+		input = name;
+		sql = "select * from employees where concat(last_name,' ',first_name) like +?";
+		return add(sql);
+	}
+	//2번
+	public static List<Emp> getEmpInfoByHireYear(int year) throws Exception {
+		input = Integer.toString(year);
+		sql = "select * from employees where year(hire_date) like +?";
+		return add(sql);
+	}
+	//3번
+	public static List<Emp> getEmpInfoByDepId(int dep_id) throws Exception {
+		input = Integer.toString(dep_id); 
+		sql = "select * from employees where department_id like +?";
+		return add(sql);
+	}
+	//4번
+	public static List<Emp> getEmpInfoByJobId(String job_id) throws Exception {
+		input = job_id;
+		sql = "select * from employees where job_id like +?";
+		return add(sql);
+	}
+	//5번
+	public static List<Emp> getEmpInfoByCity(String city) throws Exception {
+		input = city;
+		sql = "select e.*, l.city  from employees e left join departments d using(department_id)"
+				+ "left join locations l using(location_id) where l.city = ?";
+		return add(sql);
+	}
+	//6번
+	public static List<Emp> getEmpInfoByDepLastName(String dep_last) throws Exception {
+		input = dep_last;
+		sql = "select * from employees where (department_id in (select department_id from departments where manager_id in "
+				+ "(select employee_id from employees where last_name like +?)))";
+		return add(sql);
+	}
+	//7번
+	public static List<Emp> getEmpInfoByCountry(String country) throws Exception {
+		input = country;
+		sql = "select * from employees e where (e.department_id in (select d.department_id from departments d "
+				+ "where d.location_id in (select l.location_id from locations l where l.country_id in "
+				+ "(select c.country_id from countries c where c.country_name like +?))))";
+		return add(sql);
+	}
+	//8번
+	public static void getStatics(int statics_num) throws Exception {
+	    Class.forName("com.mysql.cj.jdbc.Driver");
+	    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/newhr", "root", "rootroot");
+
+	    if (statics_num == 1) {
+	        sql = "select department_id, count(*) as total_employees, avg(salary) as avg_salary, max(salary) as max_salary, min(salary) as min_salary from employees group by department_id";
+	    } else if (statics_num == 2) {
+	        sql = "select round(datediff(curdate(), hire_date) / 365.5, 0) as year_of_service, count(*) as total_employees, avg(salary) as avg_salary, max(salary) as max_salary, min(salary) as min_salary from employees group by year_of_service order by year_of_service";
+	    } else if (statics_num == 3) {
+	        sql = "select c.country_id, count(*) as total_employees, avg(e.salary) as avg_salary, max(e.salary) as max_salary, min(e.salary) as min_salary from employees e join departments d on e.department_id = d.department_id join locations l on d.location_id = l.location_id join countries c on l.country_id = c.country_id group by c.country_id";
+	    }
+
+	    PreparedStatement stmt = conn.prepareStatement(sql);
+	    ResultSet rs = stmt.executeQuery();
+	    
+	    while (rs.next()) {
+	        if (statics_num == 1) {
+	            int departmentId = rs.getInt("department_id");
+	            int totalEmployees = rs.getInt("total_employees");
+	            int avgSalary = rs.getInt("avg_salary");
+	            int maxSalary = rs.getInt("max_salary");
+	            int minSalary = rs.getInt("min_salary");
+	            System.out.println("부서번호: " + departmentId + ", 사원수: " + totalEmployees + ", 평균급여: " + avgSalary + ", 최고급여: " + maxSalary + ", 최저급여: " + minSalary);
+	        } else if (statics_num == 2) {
+	            int yearOfService = rs.getInt("year_of_service");
+	            int totalEmployees = rs.getInt("total_employees");
+	            int avgSalary = rs.getInt("avg_salary");
+	            int maxSalary = rs.getInt("max_salary");
+	            int minSalary = rs.getInt("min_salary");
+	            System.out.println("근속연차: " + yearOfService + "년, 사원수: " + totalEmployees + ", 평균급여: " + avgSalary + ", 최고급여: " + maxSalary + ", 최저급여: " + minSalary);
+	        } else if (statics_num == 3) {
+	            String countryId = rs.getString("country_id");
+	            int totalEmployees = rs.getInt("total_employees");
+	            int avgSalary = rs.getInt("avg_salary");
+	            int maxSalary = rs.getInt("max_salary");
+	            int minSalary = rs.getInt("min_salary");
+	            System.out.println("나라ID: " + countryId + ", 사원수: " + totalEmployees + ", 평균급여: " + avgSalary + ", 최고급여: " + maxSalary + ", 최저급여: " + minSalary);
+	        }
+	    }
+
+	    conn.close();
+	}
+
+	//사원출력함수
+	public static List<Emp> add(String sql) throws Exception {
+		List<Emp> result = new ArrayList<Emp>();
+		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/newhr", "root", "rootroot");
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, input);
+		ResultSet rs = stmt.executeQuery();
+		while(rs.next()) {
+			Emp emp = new Emp();
+			emp.employee_id = rs.getInt("employee_id");
+			emp.first_name = rs.getString("first_name");
+			emp.last_name = rs.getString("last_name");
+			emp.email = rs.getString("email");
+			emp.phone_number = rs.getString("phone_number");
+			emp.hire_date = rs.getString("hire_date");
+			emp.job_id = rs.getString("job_id");
+			emp.salary= rs.getInt("salary");
+			emp.commission_pct = rs.getDouble("commission_pct");
+			emp.manager_id = rs.getInt("manager_id");
+			emp.department_id = rs.getInt("department_id");
+			result.add(emp);
+		}
+		conn.close();
+		return result;
+	}
+	
+}

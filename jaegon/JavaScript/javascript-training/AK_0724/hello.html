@@ -1,0 +1,86 @@
+<!DOCTYPE html> <!-- HTML5 문서 형식 선언 -->
+
+<html>
+    <head>
+        <meta charset="UTF-8"> <!-- 문자 인코딩 설정 -->
+        <title>연습</title> <!-- 브라우저 탭에 표시될 제목 -->
+    </head>
+    <body>
+        <h1>연습 1</h1> <!-- 페이지 제목 -->
+
+        <div> <!-- 라디오 버튼: 성별 선택 -->
+            <input type="radio" name="gender" value="man"><span>남자</span>
+            <input type="radio" name="gender" value="woman"><span>여자</span>
+        </div>
+
+        <div>
+            <button onclick="show()">확인</button> <!-- 클릭 시 show() 함수 호출 -->
+        </div>
+
+        <div id="output1"> <!-- 현재 시간 표시 영역 -->
+        </div>
+
+        <div> <!-- 숫자 입력 및 더하기 버튼 -->
+            <input id="input1" type="text" value="10"> <!-- 첫 번째 숫자 -->
+            <input id="input2" type="text" value="20"> <!-- 두 번째 숫자 -->
+
+            <button onclick="add()">더하기</button> <!-- 클릭 시 add() 함수 실행 -->
+
+            <div id="output2"> <!-- 더하기 결과 출력 영역 -->
+            </div>
+        </div>
+
+        <script src="moment.js"></script> <!-- moment.js 외부 스크립트 불러오기 -->
+
+        <script>
+            function add() {
+                let input1 = document.querySelector('#input1'); // 첫 번째 입력창 선택
+                let input2 = document.querySelector('#input2'); // 두 번째 입력창 선택
+                let output2 = document.querySelector('#output2'); // 출력 영역 선택
+
+                let inputA = input1.value; // 첫 번째 입력값
+                let inputB = input2.value; // 두 번째 입력값
+
+                let a = Number(inputA); // 문자열을 숫자로 변환
+                let b = Number(inputB);
+
+                if (isNaN(a) || isNaN(b)) { // 숫자가 아닌 값이 들어오면
+                    alert(`사용자가 입력한 값이 숫자가 아닙니다.`); // 경고창 표시
+                    output2.innerHTML = ``; // 결과 영역 비우기
+                    return; // 함수 종료
+                }
+
+                let result = a + b; // 더하기 결과 계산
+                output2.innerHTML = `더하기 결과 : ${result}`; // 결과 출력
+            }
+
+            // HTML 문서가 다 로드되면 실행되는 이벤트
+            window.addEventListener('DOMContentLoaded', () => {
+                console.log(`DOMContentLoaded 이벤트 호출됨.`);
+
+                // 현재 시간 표시하기
+                let output1 = document.querySelector('#output1');
+                setInterval(() => {
+                    let curTime = moment().format('YYYY-MM-DD HH:mm:ss'); // moment.js로 현재 시간 구하기
+                    output1.innerHTML = `<p>${curTime}</p>`; //innerHTML사용시 태그를 넣을 수 있음
+                }, 1000); // 1초마다 갱신
+            });
+
+            function show() {
+                console.log(`show 함수 호출됨`);
+
+                let radios = document.getElementsByName('gender'); // name이 gender인 라디오 버튼들 가져오기
+                let selected = Array.from(radios).find(elem => elem.checked); //라디오 버튼이 체크된걸 array값에 넣어줌
+                //find는 콜백함수
+
+                console.log(`선택한 값 : ${selected.value}`); // 선택한 성별 출력
+
+                if (selected.value == 'man') {
+                    alert(`남자가 선택되었어요`);
+                } else if (selected.value == 'woman') {
+                    alert(`여자가 선택되었어요`);
+                }
+            }
+        </script>
+    </body>
+</html>

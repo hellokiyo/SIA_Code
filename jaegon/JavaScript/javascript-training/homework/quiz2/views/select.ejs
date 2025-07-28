@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+
+    <title>검색기능</title>
+</head>
+<body>
+<h1>관리자 로그인중</h1>
+
+<p>사용자 검색 페이지</p>  <!--context1로 전달-->
+
+<div> <!--점점 다른걸로 검색할 수 있는 기능 추가할 예정-->
+    <p>ID로 검색</p>
+    <span>ID : </span><input id = "selectId" type="text" name="id" value="" >
+    <button id ="selectBtn" onclick="select()"></button>
+    <p></p>
+
+    <span>사용자 정보</span>
+    <p></p>
+    <span>ID : <span id ="viewId"></span> </span>
+    <p></p>
+    <span>name : <span id="viewName"></span></span>
+    <p></p>
+    <span>age : <span id="viewAge"></span></span>
+    <p></p>
+    <span>mobile : <span id="viewMobile"></span></span>
+
+
+
+</div>
+
+<a type="" href="/main">메인페이지로 돌아가기</a>
+
+
+<script>
+    const selectId = Number(document.querySelector('#selectId').value) // 검색할 아이디
+    let rows = await conn.query(sql);
+    const sql = `select id, name, age, mobile from test.person where ${selectId}`;
+
+    function select () {
+        document.querySelector(`#viewId`).value =  rows[selectId].id
+        document.querySelector(`#viewName`).value =  rows[selectId].name
+        document.querySelector(`#viewAge`).value =  rows[selectId].age
+        document.querySelector(`#viewMobile`).value =  rows[selectId].mobile
+
+    }
+
+
+
+
+</script>
+
+</body>
+</html>

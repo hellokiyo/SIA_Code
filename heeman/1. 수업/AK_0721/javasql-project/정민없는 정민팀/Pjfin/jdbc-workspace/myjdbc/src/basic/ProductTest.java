@@ -1,0 +1,35 @@
+package basic;
+
+public class ProductTest {
+
+	public static void main(String[] args) {
+		Product product = makeProduct("S25:samsung:1500000");
+		System.out.println(product);
+
+	}
+	//문자열을 전달 받아서 제품정보를 리턴함
+	private static Product makeProduct(String productInfo) {
+		// TODO Auto-generated method stub
+		Product product = new Product();
+		String[] info = productInfo.split(":");
+		product.model = info[0];
+		product.maker = info[1];
+		product.price = Integer.parseInt(info[2]);
+		return product;
+		
+	}
+
+}
+
+class Product{
+	String model;
+	String maker;
+	int price;
+	
+	
+	@Override
+	public String toString() {
+		return "Product [model=" + model + ", maker=" + maker + ", price=" + price + "]";
+	}
+	
+}

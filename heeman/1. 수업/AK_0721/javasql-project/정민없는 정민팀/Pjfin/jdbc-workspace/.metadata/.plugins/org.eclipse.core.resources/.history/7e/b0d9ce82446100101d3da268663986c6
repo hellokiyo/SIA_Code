@@ -1,0 +1,9 @@
+package myjdbc;
+
+public class PolymorphismTest {
+	public static void main(String[] args) {
+		System.out.println(1); // int형 1 호출
+		System.out.println("1"); // String형 1 호출 
+	}
+
+}

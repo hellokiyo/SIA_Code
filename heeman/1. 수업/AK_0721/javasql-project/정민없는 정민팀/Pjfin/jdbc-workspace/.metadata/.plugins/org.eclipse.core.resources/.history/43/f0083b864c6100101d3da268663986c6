@@ -1,0 +1,15 @@
+package myjdbc;
+
+public class CarTest {
+
+	public static void main(String[] args) {
+		Car car1 = new Car("df", 300);
+
+	}
+
+class Car {
+	Car(String name, int speed){
+			
+		}
+
+}

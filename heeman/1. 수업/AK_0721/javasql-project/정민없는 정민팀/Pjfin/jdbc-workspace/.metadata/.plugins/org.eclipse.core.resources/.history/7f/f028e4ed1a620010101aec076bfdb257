@@ -1,0 +1,25 @@
+package myjdbc;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Scanner;
+
+//입사년도를 입력받아서 그 해에 입사한 사원목록을 리턴함.
+//
+//반드시 EmpDAO 클래스 내부에 넣습니다.
+//EmpDAO클래스 전체를 제출합니다.
+//비공개댓글로 제출합니다.
+public class EmpDAO1 {
+
+	public static void main(String[] args) {
+		System.out.println("입사년도를 입력해주세요 (ex 2001-01-01): ");
+		Scanner scan = new Scanner(System.in);
+		String hireDateStr = scan.nextLine();
+		SimpleDateFormat hireDate = new SimpleDateFormat("YY-mm-dd");
+		while(hireDate != null) {
+			System.out.println();
+		}
+
+	}
+
+}

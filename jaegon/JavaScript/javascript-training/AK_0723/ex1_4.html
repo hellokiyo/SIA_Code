@@ -1,0 +1,91 @@
+<!DOCTYPE html> <!-- HTML5 문서임을 선언 -->
+
+<html>
+  <head>
+    <!-- 문서 기본 정보 및 스타일 정의 영역 -->
+
+    <meta charset="UTF-8"> <!-- 문자 인코딩 설정 (한글 깨짐 방지) -->
+    <title>연습</title>    <!-- 브라우저 탭에 표시될 제목 -->
+
+    <!-- 내부 CSS 스타일 정의 -->
+    <style>
+      /* 기본 HTML 태그에 스타일 적용 */
+      p {
+        border: 2px solid blue; /* 파란 테두리 */
+      }
+      span {
+        border: 2px solid green; /* 초록 테두리 */
+      }
+      img {
+        border: 2px solid red; /* 빨간 테두리 */
+      }
+
+      /* 클래스 선택자 (.group1): 여러 요소에 동일 스타일 적용 가능 */
+      .group1 {
+        border: 2px solid magenta; /* 자주색 테두리 */
+      }
+
+      /* ID 선택자 (#my1): 한 요소에만 적용 */
+      #my1 {
+        color: red;              /* 글자색 빨강 */
+        font-size: 2em;          /* 글자 크기 키움 */
+        font-weight: bold;       /* 굵은 글씨 */
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- 실제 브라우저 화면에 표시될 내용 -->
+
+    <h1>연습 첫번째</h1> <!-- 큰 제목 -->
+
+    <!-- p 태그에 ID 및 클래스 적용 -->
+    <div class="group1">
+      <p id="my1">연습입니다</p>     <!-- ID 스타일 적용 (빨강, 굵게 등) -->
+      <p>연습입니다</p>
+      <p>연습입니다</p>
+      <p>연습입니다</p>
+    </div> <!-- 닫는 태그 수정 완료 -->
+
+    <!-- span 태그는 인라인 요소: 글 안에 들어가는 요소 -->
+    <div class="group1">
+      <span>테스트입니다.</span>
+      <span>테스트입니다.</span>
+      <span>테스트입니다.</span>
+    </div>
+
+    <!-- 고양이 이미지 3장 -->
+    <div class="group1">
+      <img src="images/cat_stand.png" alt="서 있는 고양이">
+      <img src="images/cat_walk.png" alt="걷는 고양이">
+      <img src="images/cat_run.png" alt="달리는 고양이">
+    </div>
+
+    <!-- 텍스트 입력창과 버튼 -->
+    <div>
+      <input type="text" value="" id="input1">              <!-- 입력창 1: 사용자 입력용 -->
+      <input type="text" value="21">                        <!-- 입력창 2: 미리 값 채움 -->
+      <input type="text" value="010-1000-1000">             <!-- 입력창 3: 전화번호 입력 예시 -->
+      <button onclick="show()">확인</button>                <!-- 클릭 시 JS 함수 호출 -->
+    </div>
+
+    <!-- 결과 출력 영역 -->
+    <div id="output1"></div>
+
+    <!-- 자바스크립트 코드 삽입 -->
+    <script>
+      // show() 함수 정의: 버튼 클릭 시 실행됨
+      function show() {
+        console.log('버튼이 눌렸어요'); // 콘솔에 로그 출력
+
+        // input과 output 요소를 변수로 가져옴
+        const input1 = document.querySelector('#input1');
+        const output1 = document.querySelector('#output1');
+
+        // 입력값을 받아서 p 태그 형태로 결과 출력 영역에 삽입
+        output1.innerHTML = `<p>입력한 값 : ${input1.value}</p>`;
+        // ↑ 백틱(``) 안은 HTML 문자열이며, ${}는 JavaScript 변수 삽입 방식
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,10 @@
+package myjdbc;
+
+public class ArrayTest {
+
+	public static void main(String[] args) {
+		// array : 배열
+
+	}
+
+}

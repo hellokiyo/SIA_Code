@@ -1,0 +1,8 @@
+package myjdbc;
+
+public class LiteralTest {
+	public static void main(String[] args) {
+		System.out.println("Hello");
+	}
+
+}
