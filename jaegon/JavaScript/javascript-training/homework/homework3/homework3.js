@@ -43,16 +43,16 @@ router.route('/login').get((req,res) => {
 
 
 router.route('/menu').get((req, res) => {
-    console.log(`/page/main 요청됨`);
+    console.log(`/menu 요청됨`);
 
     const params =req.query;
 
     const context1 = {
-        name1 : '정훈이의 홈페이지',
+        userId :params.id,
         lastSelectScreen : params.lastSelectScreen
     };
 
-    req.app.render('main', context1, (err, html) => {
+    req.app.render('menu', context1, (err, html) => {
         if (err) {
             console.error(`뷰 처리 중 에러 -> ${err}`);
             return;
