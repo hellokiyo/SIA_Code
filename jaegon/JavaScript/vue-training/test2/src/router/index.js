@@ -27,6 +27,11 @@ const router = createRouter({
       name: 'add',
       component: () => import('../views/AddCustomerView.vue'),  //요청했을때 불러오기
     },
+    {
+      path: '/update',
+      name: 'update',
+      component: () => import('../views/UpdateCustomerView.vue'),  //요청했을때 불러오기
+    },
   ],
 })
 

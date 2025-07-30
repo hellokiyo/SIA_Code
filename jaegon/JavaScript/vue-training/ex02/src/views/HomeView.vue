@@ -12,15 +12,15 @@
     <div>
       <label>이름 : </label>
       <input type="text" v-model="name" />
-      <br />
+      <br/>
 
       <label>나이 : </label>
       <input type="text" v-model="age" />
-      <br />
+      <br/>
 
       <label>전화번호 : </label>
       <input type="text" v-model="mobile" />
-      <br />
+      <br/>
 
       <button @click="show">확인</button>
     </div>

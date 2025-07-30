@@ -1,72 +1,78 @@
 <template>
   <div>
-    <div>
-      <h1>홈 화면 </h1>
-    </div>
-    <br>
-    <div>
-      <span>이름 : </span>
-      <input type="text" v-model="nameInput">
-    </div>
-    <br>
-    <div>
-      <span>나이 : </span>
-      <input type="text" v-model="ageInput">
-    </div>
-    <br>
-    <div>
-      <span>전화번호 : </span>
-      <input type="text" v-model="mobileInput">
-    </div>
-    <br>
-    <div>
-      <button @click="show()">확인</button>
-    </div>
-    <br>
-    <div>
-      <p>결과 : {{ name }}</p>
-    </div>
-    <div>
-      <button @click = "requestPersonList()">웹서버에서 조회하기</button>
-    </div>
+    <button class="btn btn-primary mt-5 ms-5 px-5 py-3"><span class = "fs-2 fw-bold">확인</span></button>
+  </div>
+
+  <div class="mt-4 d-flex justify-content-center">  <!--flex로 잡고 justify로 정렬-->
+    <span class="fs-4 fw-bold">고객 목록 : </span>
+  </div>
+
+  <div class="card mt-4 mx-4">
+    <div class="card-body">
+
+      <ul class="list-group">
+        <li class="list-group-item">
+
+          <div class="row d-flex align-items-center">
 
 
-    <table>
-      <thead>
-      <tr>
-        <th>이름</th>
-        <th>나이</th>
-        <th>전화번호</th>
-      </tr>
-      </thead>
+            <div class="col-3">
+              <p>이름</p>
+            </div>
 
-      <tbody>
-      <!--반복문-->
-      <tr v-for = "(item, index) in persons" :key ="item.id">
-        <td>{{ item.name }}</td>
-        <td>{{item.age}}</td>
-        <td>{{ item.mobile }}</td>
-      </tr>
-      </tbody>
-      <!--
-      <tbody>
-      <tr>
-        <td>홍길동1</td>
-        <td>21</td>
-        <td>010-1000-1000</td>
-      </tr>
-      <tr>
-        <td>홍길동2</td>
-        <td>22</td>
-        <td>010-2000-2000</td>
-      </tr>
-      </tbody>
-      -->
-    </table>
+            <div class="col-2">
+              <p>나이</p>
+            </div>
 
-    <div>
-      <button @click = "goToAbout()">정보화면으로</button>
-      <button @click = "goToMenu()">메뉴화면으로</button>
+            <div class="col-3">
+              <p>전화번호</p>
+            </div>
+
+          </div>
+
+
+
+
+
+
+          <div v-for="(item, index) in persons" :key="item.id">
+            <div class="row d-flex align-items-center">
+              <div class="col-1">
+                <img class = "rounded-circle" src="@/assets/customer.png" style ="width:1.5em; height:1.5em;">
+              </div>
+
+              <div class="col-3">
+                <p>{{ item.name }}</p>
+              </div>
+
+              <div class="col-2">
+                <p>{{item.age}}</p>
+              </div>
+
+              <div class="col-3">
+                <p>{{ item.mobile }}</p>
+              </div>
+
+              <div class="col-3">
+                <button class="btn btn-sm btn-primary">수정</button>
+                <button class="btn btn-sm btn-danger">삭제</button>
+              </div>
+
+            </div>
+          </div>
+
+        </li>
+      </ul>
+
+    </div>
+
+    <div class="card-footer">
+
+      <div class="d-flex justify-content-end mt-2 mb-2">
+        <button class="btn btn-primary fw-bold" @click="goToAddCustomer()">추가하기</button>
+
+      </div>
+
     </div>
   </div>
 </template>
@@ -76,6 +82,9 @@
 import {ref,onMounted} from "vue";
 import axios from "axios";
 import {useRouter} from "vue-router";
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap'
+
 
 const router = useRouter();
 

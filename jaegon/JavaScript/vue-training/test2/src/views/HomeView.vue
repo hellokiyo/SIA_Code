@@ -1,46 +1,71 @@
 <template>
-  <div>
-    <!-- 페이지 제목 -->
-    <div>
-      <h1>홈 화면 </h1>
+
+  <div class="mt-4 d-flex justify-content-center ">  <!--flex로 잡고 justify로 정렬-->
+    <span class="fs-4 fw-bold">고객 목록 : </span>
+  </div>
+
+  <div class="card mt-4 mx-4">
+    <div class="card-body">
+
+      <ul class="list-group">
+        <li class="list-group-item">
+
+          <div class="row d-flex align-items-center">
+
+
+            <div class="col-3">
+              <p>이름</p>
+            </div>
+
+            <div class="col-2">
+              <p>나이</p>
+            </div>
+
+            <div class="col-3">
+              <p>전화번호</p>
+            </div>
+
+          </div>
+
+
+          <div v-for="(item, index) in persons" :key="item.id">
+            <div class="row d-flex align-items-center">
+              <div class="col-1">
+                <img class = "rounded-circle" src="@/assets/customer.png" style ="width:1.5em; height:1.5em;">
+              </div>
+
+              <div class="col-3">
+                <p>{{ item.name }}</p>
+              </div>
+
+              <div class="col-2">
+                <p>{{item.age}}</p>
+              </div>
+
+              <div class="col-3">
+                <p>{{ item.mobile }}</p>
+              </div>
+
+              <div class="col-3">
+                <button class="btn btn-sm btn-primary" @click="goToUpdateCustomer()" >수정</button>
+                <button class="btn btn-sm btn-danger" @click="DeletePerson(item.id)">삭제</button>
+              </div>
+
+            </div>
+          </div>
+
+        </li>
+      </ul>
+
     </div>
 
-    <!-- 서버 데이터 가져오기 버튼 -->
-    <div>
-      <button @click="requestPersonList()">웹서버에서 조회하기</button>
-    </div>
+    <div class="card-footer">
 
-    <div>
-      <button @click ="requestPersonAdd">웹서버에서 추가하기</button>
-    </div>
-    <!-- 서버에서 가져온 목록 테이블 -->
-    <table>
+      <div class="d-flex justify-content-end mt-2 mb-2">
+        <button class="btn btn-primary fw-bold" @click="goToAddCustomer()">추가하기</button>
 
-      <thead>
-        <tr>
+      </div>
 
-          <th>이름</th>
-          <th>나이</th>
-          <th>전화번호</th>
-
-        </tr>
-      </thead>
-
-      <tbody>
-      <!-- v-for: persons 배열을 반복 -->
-        <tr v-for="(item, index) in persons" :key="item.id"> <!--id값에 따른 person찾기-->
-          <td>{{ item.name }}</td>
-          <td>{{ item.age }}</td>
-          <td>{{ item.mobile }}</td>
-        </tr>
-
-      </tbody>
-
-    </table>
-
-    <!-- 페이지 이동 버튼 -->
-    <div>
-      <button @click="goToAddCustomer()">고객 추가화면으로</button>
     </div>
   </div>
 </template>
@@ -52,14 +77,13 @@
 import { onMounted, ref } from "vue";
 import axios from "axios";
 import { useRouter } from "vue-router";
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap'
 
 /* 라우터 객체 (페이지 이동 용도) */
 const router = useRouter();
 
 const persons = ref([]);    // 서버에서 가져올 사람 목록
-
-const name = ref(''); // 태그감지
-const age = ref('');
 
 
 //고장난듯
@@ -75,56 +99,40 @@ async function requestPersonList() {
   console.log('requestPersonList 함수 호출됨');
 
   try {
-    const response = await axios.get('http://localhost:7001/person/list-data');
+    const response = await axios.get('http://localhost:7001/person/select');
     console.log(`응답 -> ${JSON.stringify(response.data)}`);
 
     // 서버에서 받은 JSON 데이터 배열을 persons에 저장
     persons.value = response.data.data;
+    // response.data > 위쪽 서버로 받아온 json파일
+    // response.data.data > json파일의 실제 데이터 값 (id,name,age,mobile)
+  } catch (err) {
+    console.error(`에러 -> ${err}`);
+  }
+}
+
+async function DeletePerson(id) {
+  console.log('DeletePerson 함수 호출됨');
+  try {
+    const response = await axios.get('http://localhost:7001/person/delete', {
+      params: {
+        id: id,
+      }
+    });
+
+    console.log(`응답 -> ${JSON.stringify(response.data)}`);
+
+    requestPersonList();
+    //화면 초기화
   } catch (err) {
     console.error(`에러 -> ${err}`);
   }
 }
 
 
-async function requestPersonAdd() {
-  console.log(`requestPersonAdd 함수 호출됨`);
-
-  try {
-    // addcustomer에서 받아오기
-    const params = {
-      name: name.value,
-      age: age.value,
-      mobile: mobile.value
-    };
-
-    // axios GET 요청 (쿼리 파라미터 방식)
-    const response = await axios({
-      method: 'get',
-      url: 'http://localhost:7001/person/insert',
-      params: params
-    });
-
-    console.log(`추가 응답 -> ${JSON.stringify(response.data)}`);
-
-    // 추가 후 목록도 갱신
-    persons.value = response.data.persons;
-
-  } catch (err) {
-    console.error(err);
-  }
+function goToUpdateCustomer(){
+  router.push('/update');
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 function goToAddCustomer() {
   // /add 페이지로 이동
