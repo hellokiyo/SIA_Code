@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<style>
+.tdGroup {
+	text-align: center;
+}
+
+.relative {
+	position: relative; 
+	left: 100px;
+}
+
+</style>
+
+</head>
+<body>
+
+
+	<div class="relative">
+		<p>웹 폼 사례</p>
+	</div>
+	<form action="lunch.jsp" method="get">
+		<div>
+			<table border="1px">
+				<tr>
+					<th>사용자이름</th>
+					<td class="tdGroup">
+						<input type="text" placeholder="이름을 입력하세요" name="userName">
+					</td>
+				</tr>
+				
+				<tr>
+					<th>이메일</th>
+					<td class="tdGroup"><input type="text"
+						placeholder="메일주소를 입력하세요" name="email"></td>
+				</tr>
+				
+				<tr>
+					<th>검색단어</th>
+					<td class="tdGroup"><input type="text"
+						placeholder="검색어를 입력하세요" name="serch"></td>
+				</tr>
+				
+				<tr>
+					<th>취미</th>
+					<td class="tdGroup">
+						<div>
+							<input type="checkbox" id="health" name="hobby" value="health">운동
+							<input type="checkbox" id="music" name="hobby" value="music">악기
+							<input type="checkbox" id="travel" name="hobby" value='travle'>여행
+						</div>
+					</td>
+				</tr>
+				
+				<tr>
+					<th>성별</th>
+					<td class="tdGroup">
+						<input type="radio" id="gender" name="gender"value="man">남 
+						<input type="radio" id="gender" name="gender"value="woman">여
+					</td>
+				</tr>
+				
+				<tr>
+					<th>점심메뉴</th>
+					<td class="tdGroup"><select name="lunch">
+							<option value="Jjajangmyeon">짜장면</option>
+							<option value="Ganjjajang">간짜장</option>
+							<option value="handmade jjajang">수타짜장</option>
+							<option value="Jjajangmyeon on a tray">쟁반짜장</option>
+							<option value="Samseonjjajang">삼선짜장</option>
+					</select></td>
+				</tr>
+			</table>
+
+			<div class="relative">
+				<input type="submit" value="submit">
+			</div>
+
+		</div>
+	</form>
+</body>
+</html>

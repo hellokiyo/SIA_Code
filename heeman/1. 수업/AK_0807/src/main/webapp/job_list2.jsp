@@ -1,0 +1,51 @@
+<%@page import="myjsp.EmpUtil"%>
+<%@page import="java.util.List"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<%
+	List<String> jobList = EmpUtil.getJobList();
+	%>
+
+	<form action="emp_list.jsp">
+		<select id="jobId" name="jobId">
+			<%
+			for (String jobId : jobList) {
+			%>
+			<option value="<%=jobId%>"><%=jobId%></option>
+			<%
+			}
+			%>
+		</select> <input type="submit" value="해당직무직원목록조회">
+	</form>
+
+
+<script type="text/javascript">
+	/*
+		1. select 태그를 참조한다.
+		2. select 태그의 선택이 변경되면 함수가 실행되게 한다.
+	*/
+ 
+	//let jobId = document.getElementById("jobId"); //태그의 id값
+	let jobId = document.querySelector("#jobId"); //css선택자
+ 	/* jobId.onchange = handleJobId;
+	function handleJobId() {
+		alert(jobId.value);		
+	} */
+	
+	jobId.addEventListener("change", handleJobId)
+	
+	function handleJobId() {
+		alert(jobId.value);		
+	}
+
+</script>
+</body>
+</html>

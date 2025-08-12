@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>main.html</h1>
+	<a href="hello.jsp">hello.jsp</a>
+	<a href="http://localhost:9000/mymy/hello.jsp?firstName=haha">hello.jsp</a>
+	
+	<br>
+	
+ 	
+ 	<!-- 
+ 	인라인 태그 :  span, a, input 등등
+ 	
+ 	블락 태그 : p, h, form 등등
+ 	-->
+ 	<!-- action에 들어갈링크를 제대로 작성하지 않으면 404에러가 난다. -->
+	<form action="emplist.jsp" method="get">
+		Last Name  : <input type="text" name="LastName"><br>
+		First Name  : <input type="text" name="firstName"><br>
+		<select>
+			<option>opt1</option>
+			<option>opt2</option>
+			<option>opt3</option>
+			<option>opt4</option>
+		</select><br>
+		<input type="submit" value="전송">
+	</form>
+	
+	
+	
+	
+</body>
+</html>

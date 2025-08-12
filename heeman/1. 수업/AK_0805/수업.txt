@@ -1,0 +1,42 @@
+원격데스크톱연결
+
+cmd 관리자 권한실행
+ipconfig
+
+다른 사용자 컴퓨터에게 ping을 입력했을때 전송을 받는다면 그 컴퓨터와 주고받고있다는걸 알 수 있음
+연결되어있음
+
+웹 페이지 들어가서 도메인 복사후 ping (도메인) 입력 후 확인
+
+내 PC 우클릭 - 속성 - 정보확인
+
+브라우저검색 - windows os
+
+eclips - c://lx/jsp-project  - help - About Eclipes IDE - web을 만들 수 있는 이클립스버전인지 확인
+
+톰켓 설치
+폴더 경로 - c://lx/
+
+eclips - 하단 메뉴 server 클릭 - no server are available 클릭 - Apache - Tomcat v9.0 Server - 파일 경로지정해주고 - finish
+
+상단부분 text/html 부분 수정하고 웹페이지 서버실행하면 다운로드 됨
+
+
+서버에 누가들어와 있는지 확인 : netstat -a |findStr 9000
+
+질문
+get방식
+
+1. 클라이언트란
+
+2. 서버로요청보내는 상황
+
+웹브라우저입력창에 url 입력창에 주소를 입력하고 enter
+
+하이퍼링크를 클릭했을때
+
+폼 태그 액션으로 submit누를때
+
+ajax통신
+
+새로고침 했을때
